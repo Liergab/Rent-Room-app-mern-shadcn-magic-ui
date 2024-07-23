@@ -11,13 +11,26 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
+      padding:{
+        md:"10rem"
       },
+      
     },
     extend: {
       colors: {
+        'bleached-cedar': {
+        '50': '#f7f2fb',
+        '100': '#f0e7f8',
+        '200': '#e5d3f2',
+        '300': '#d6b8e9',
+        '400': '#c99bde',
+        '500': '#bf82d2',
+        '600': '#b468c3',
+        '700': '#9f57ab',
+        '800': '#80498a',
+        '900': '#67406f',
+        '950': '#2a1a2d',
+    },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -66,10 +79,27 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        orbit: {
+          "0%": {
+            transform:
+              "rotate(0deg) translateY(calc(var(--radius) * 1px)) rotate(0deg)",
+          },
+          "100%": {
+            transform:
+              "rotate(360deg) translateY(calc(var(--radius) * 1px)) rotate(-360deg)",
+          },
+        },
+        grid: {
+          "0%": { transform: "translateY(-50%)" },
+          "100%": { transform: "translateY(0)" },
+        },
+
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        orbit: "orbit calc(var(--duration)*1s) linear infinite",
+        grid: "grid 15s linear infinite",
       },
     },
   },
