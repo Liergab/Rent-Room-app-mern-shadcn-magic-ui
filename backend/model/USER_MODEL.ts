@@ -1,7 +1,7 @@
 import mongoose, { Document, model, Schema } from 'mongoose'
 
 export interface UserType extends Document {
-    _id       : string,
+    id       : string,
     email     : string,
     password  : string,
     firstName : string,

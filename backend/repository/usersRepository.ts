@@ -1,7 +1,7 @@
 import User, {UserType} from "../model/USER_MODEL";
 
 
-class usersRepository {
+class UsersRepository {
 
     async findAll():Promise<UserType[]>{
         return User.find().exec()
@@ -28,4 +28,4 @@ class usersRepository {
     }
 }
 
-export default new usersRepository()
+export default new UsersRepository()
