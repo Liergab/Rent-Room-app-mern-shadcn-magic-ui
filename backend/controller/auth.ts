@@ -1,20 +1,18 @@
-import { NextFunction, Request, Response } from "express"
+import { Request, Response, NextFunction } from "express"
 import generateToken from "../utils/generateToken"
 import UsersImplementation from "../services/serviceImplementation/usersImplementation"
 
-
-export const register = async(req:Request, res:Response, next:NextFunction) => {
+export const login = async(req:Request,res:Response, next:NextFunction) => {
     try {
-        const{email, password, firstName, lastName} = req.body
+        const{email, password} = req.body
 
-        if(!email || !password || !firstName || !lastName){
+        if(!email || !password){
             res.status(400)
-            throw new Error('All Fields are required!')
+            throw new Error('All fields Required!')
         }
 
-        const user = await UsersImplementation.registerUser(req.body)
+        const user= await UsersImplementation.login(email, password)
         const token = await generateToken(user.id)
-
         res.cookie('jwt', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV !== 'development', 
@@ -22,13 +20,13 @@ export const register = async(req:Request, res:Response, next:NextFunction) => {
             maxAge: 30 * 24 * 60 * 60 * 1000, 
         })
 
-        res.status(200).json({message:"successfully Registered"})
+        res.status(200).json({token, message:"Successfully Login!", data:user})
 
     } catch (error:any) {
-
-        if (error.message === 'Email Already Exist!') {
+        if (error.message === 'Invalid email or password') {
             res.status(409); 
         } 
         next(error)
     }
+    
 }
