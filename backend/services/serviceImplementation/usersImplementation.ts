@@ -11,17 +11,17 @@ class UsersImplementation {
     // async getUserById(id: string): Promise<UserType | null> {
     //     return
     // }
-    async registerUser(user: Partial<UserType>):Promise<UserType> {
+    async registerUser(user: Partial<UserType>):Promise<{token:string, user:UserType}> {
         const userExist = await UsersRepository.findByEmail(user.email!)
 
         if(userExist){
             throw new Error('Email Already Exist!')
         }
-
         user.password = await hashPassword(user.password!)
+        const newUser = await UsersRepository.register(user);
+        const token = await generateToken(newUser.id); 
 
-        return UsersRepository.register(user)
-
+        return {token , user:newUser}
         
     }
     // async updateUserById(id: string, update: Partial<UserType>): Promise<UserType | null> {
@@ -32,7 +32,7 @@ class UsersImplementation {
     //     return
     // }
 
-    async login(email: string, password: string): Promise< UserType> {
+    async login(email: string, password: string): Promise< {token:string, user:UserType}> {
         const user = await UsersRepository.findByEmail(email)
 
         if(!user){
@@ -44,12 +44,10 @@ class UsersImplementation {
         if(!isPasswordValid){
             throw new Error('Invalid email or password')
         }
-
-       
-
+        const token = await generateToken(user.id)
         const { password: _, ...userWithoutPassword } = user.toObject();
 
-        return userWithoutPassword
+        return {token , user: userWithoutPassword}
     }
 
 }

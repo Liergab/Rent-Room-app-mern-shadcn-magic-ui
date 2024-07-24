@@ -1,7 +1,7 @@
 import mongoose, { Document, model, Schema } from 'mongoose'
 
 export interface UserType extends Document {
-    id       : string,
+    id        : string,
     email     : string,
     password  : string,
     firstName : string,
@@ -30,6 +30,6 @@ const userSchema = new Schema({
     }
 },{timestamps:true})
 
-const User = model<UserType>('users', userSchema)
+const User = model<UserType>('User', userSchema)
 
 export default User;

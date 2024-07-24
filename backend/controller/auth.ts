@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express"
-import generateToken from "../utils/generateToken"
 import UsersImplementation from "../services/serviceImplementation/usersImplementation"
+import { AuthenticatedRequest } from "../types/express"
 
 export const login = async(req:Request,res:Response, next:NextFunction) => {
     try {
@@ -11,8 +11,8 @@ export const login = async(req:Request,res:Response, next:NextFunction) => {
             throw new Error('All fields Required!')
         }
 
-        const user= await UsersImplementation.login(email, password)
-        const token = await generateToken(user.id)
+        const{token, user} = await UsersImplementation.login(email, password)
+       
         res.cookie('jwt', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV !== 'development', 
@@ -29,4 +29,9 @@ export const login = async(req:Request,res:Response, next:NextFunction) => {
         next(error)
     }
     
+}
+
+
+export const verifyToken = async(req:AuthenticatedRequest, res:Response, next:NextFunction)=> {
+    res.status(200).json(req.user)
 }

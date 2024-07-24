@@ -12,8 +12,8 @@ export const register = async(req:Request, res:Response, next:NextFunction) => {
             throw new Error('All Fields are required!')
         }
 
-        const user = await UsersImplementation.registerUser(req.body)
-        const token = await generateToken(user.id)
+        const {token, user} = await UsersImplementation.registerUser(req.body)
+        
 
         res.cookie('jwt', token, {
             httpOnly: true,
