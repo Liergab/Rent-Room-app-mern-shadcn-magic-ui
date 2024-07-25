@@ -5,6 +5,7 @@ import './App.css'
 import Layout from './layout/Layout'
 import Register from './Page/publicPage/Register'
 import { Toaster }       from 'react-hot-toast';
+import Login from './Page/publicPage/Login';
 
 function App() {
 
@@ -18,7 +19,8 @@ function App() {
         <Route path='/search' element={<Layout>
           <p>search</p>
         </Layout>}/>
-        <Route path="/sign-in" element={<Register/>}/>
+        <Route path="/sign-up" element={<Register/>}/>
+        <Route path='/sign-in' element={<Login/>}/>
         <Route path='*' element={<Navigate to='/'/>}/>
     </Routes>
     </>

@@ -4,13 +4,16 @@ import App from './App.tsx'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import ReactQueryProvider from './services/provider/ReactQueryProvider.tsx'
+import { AppContextProvider } from './context/AppContext.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ReactQueryProvider>
+    <AppContextProvider>
       <BrowserRouter>
         <App />
       </BrowserRouter>
+      </AppContextProvider>
     </ReactQueryProvider>
   </React.StrictMode>,
 )

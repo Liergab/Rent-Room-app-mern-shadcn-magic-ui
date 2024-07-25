@@ -1,18 +1,24 @@
-import React from 'react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import React from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-interface props {
-    children : React.ReactNode
+interface Props {
+    children: React.ReactNode;
 }
 
-const ReactQueryProvider = ({children}:props) => {
+const ReactQueryProvider: React.FC<Props> = ({ children }) => {
+    const client = new QueryClient({
+        defaultOptions: {
+            queries: {
+                retry: 0,
+            },
+        },
+    });
 
-    const client = new QueryClient()
-  return (
-    <QueryClientProvider client={client}>
-        {children}
-    </QueryClientProvider>
-  )
-}
+    return (
+        <QueryClientProvider client={client}>
+            {children}
+        </QueryClientProvider>
+    );
+};
 
-export default ReactQueryProvider
+export default ReactQueryProvider;
