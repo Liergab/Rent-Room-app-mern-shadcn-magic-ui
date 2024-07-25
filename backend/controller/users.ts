@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express"
-import generateToken from "../utils/generateToken"
 import UsersImplementation from "../services/serviceImplementation/usersImplementation"
 
 
@@ -15,11 +14,12 @@ export const register = async(req:Request, res:Response, next:NextFunction) => {
         const {token, user} = await UsersImplementation.registerUser(req.body)
         
 
-        res.cookie('jwt', token, {
+        res.cookie('auth-token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV !== 'development', 
-            sameSite: 'none',
+            sameSite: 'lax',
             maxAge: 30 * 24 * 60 * 60 * 1000, 
+            path: '/',
         })
 
         res.status(200).json({message:"successfully Registered"})

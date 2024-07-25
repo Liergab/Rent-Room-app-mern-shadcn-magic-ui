@@ -18,6 +18,10 @@ app.use(cors({
 
 
 app.use(rootRouter)
+app.use((req, res, next) => {
+    console.log('Cookie:', req.cookies['auth-token']); // Log the cookie value
+    next();
+  });
 app.use(pathNotFound)
 app.use(errorValidation)
 

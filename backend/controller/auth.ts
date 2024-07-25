@@ -13,10 +13,10 @@ export const login = async(req:Request,res:Response, next:NextFunction) => {
 
         const{token, user} = await UsersImplementation.login(email, password)
        
-        res.cookie('jwt', token, {
+        res.cookie('auth-token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV !== 'development', 
-            sameSite: 'none',
+            sameSite: 'lax',
             maxAge: 30 * 24 * 60 * 60 * 1000, 
         })
 

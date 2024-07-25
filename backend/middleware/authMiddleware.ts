@@ -14,7 +14,7 @@ declare global{
 
 export const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        let token = req.cookies.jwt;
+        let token = req.cookies['auth-token'];
 
         if (token) {
             try {
