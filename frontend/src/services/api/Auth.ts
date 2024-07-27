@@ -17,6 +17,14 @@ export const useRegister = async(userData:RegisterFormProps)=> {
 }
 
 
+export const useLogout = async () => {
+    const response = await axios.get(`${BASE_URL}/auth/logout`, {
+      withCredentials: true, // Add this option
+    });
+    return response.data;
+  };
+
+
 export const useLogin = async(userData:LoginFormProps) => {
     const response = await axios.post(`${BASE_URL}/auth/login`, userData,{
         headers:{

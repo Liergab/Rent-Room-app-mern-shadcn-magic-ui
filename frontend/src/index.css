@@ -67,3 +67,31 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities{
+  .button-navbar{
+    @apply rounded-xl border-2 border-bleached-cedar-800  dark:bg-bleached-cedar-950 text-bleached-cedar-700 dark:text-bleached-cedar-400 shadow-xl text-xs w-16 h-8 md:w-20 md:h-10 md:text-base;
+  }
+  .navlinks-hover{
+    @apply hover:translate-y-[-5px] transition-transform duration-300;
+  }
+
+  .navlinks-text{
+    @apply text-bleached-cedar-700 hover:text-bleached-cedar-400 font-bold shadow-xl text-xs md:text-base;
+  }
+
+
+  /* register and login */
+
+  .register-login-label{
+    @apply text-gray-700 dark:text-bleached-cedar-100 text-sm font-bold flex-1;
+  }
+
+  .background-register-login{
+    @apply bg-gradient-to-br from-fuchsia-300 via-fuchsia-200 to-fuchsia-400 dark:bg-gradient-to-br dark:from-zinc-900 dark:via-bleached-cedar-950 dark:to-zinc-900;
+  }
+
+  .button-auth-form{
+    @apply rounded-xl border-2 border-bleached-cedar-800  dark:bg-bleached-cedar-950 text-bleached-cedar-700 dark:text-bleached-cedar-400 shadow-xl text-xs w-16 h-8 md:w-32 md:h-10 md:text-base;
+  }
+}

@@ -12,11 +12,14 @@ module.exports = {
     container: {
       center: true,
       padding:{
-        md:"10rem"
+        xl:"10rem"
       },
       
     },
     extend: {
+      transitionDuration: {
+        'DEFAULT': '300ms',
+      },
       colors: {
         'bleached-cedar': {
         '50': '#f7f2fb',
