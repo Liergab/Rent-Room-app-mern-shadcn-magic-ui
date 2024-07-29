@@ -13,7 +13,7 @@ import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { AxiosError } from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-
+import useMetaTags from '@/hooks/useMetaTags';
 
 export type LoginFormProps = z.infer<typeof loginSchema>
 
@@ -21,6 +21,7 @@ function isAxiosError(error: any): error is AxiosError {
   return (error as AxiosError)?.isAxiosError === true;
 }
 const Login = () => {
+  useMetaTags('Login-RentRoom', 'Sign in  to RentRoom and find a place for your stay castion')
   const queryClient = useQueryClient()
   const navigate = useNavigate();
   const UserLogin = useMutation({
@@ -65,15 +66,7 @@ const Login = () => {
     }
   },[formState, isSubmitSuccessful,reset]);
 
-  useEffect(() => {
-    if (errors.password) {
-      toast.error(errors.password.message!);
-    }
-    if(errors.email){
-        toast.error(errors.email.message!);
-    }
-  }, [errors.password,
-      errors.email, ]);
+
 
 
   return (
@@ -89,6 +82,7 @@ const Login = () => {
                   className="border rounded w-full text-gray-700 focus:text-gray-700 py-1 px-2 font-normal" 
                   {...register("email") } 
                 />
+                <p className='text-red-400'>{errors.email?.message}</p>
             </label>
             <label className='text-gray-700 dark:text-bleached-cedar-100 text-sm font-bold flex-1'>
                 Password
@@ -97,6 +91,7 @@ const Login = () => {
                   className="border rounded w-full text-gray-700 focus:text-gray-700  py-1 px-2 font-normal" 
                   {...register("password") } 
                 />
+                <p className='text-red-400'>{errors.password?.message}</p>
             </label>
             <div className='flex items-center justify-between'>
               <p className='text-[12px]'>Not Registered? {" "} 

@@ -3,9 +3,11 @@ import cors       from 'cors'
 import env        from './utils/validateEnv'
 import db         from './config/db'
 import rootRouter from './routes'
+import path       from 'path'
 import cookieParser from 'cookie-parser'
 import { errorValidation, pathNotFound } from './middleware/errorMiddleware'
 import "dotenv/config"
+
 
 const app = express()
 app.use(express.json())
@@ -16,12 +18,8 @@ app.use(cors({
     credentials:true
 }))
 
-
+app.use(express.static(path.join(__dirname, "../../frontend/dist")))
 app.use(rootRouter)
-app.use((req, res, next) => {
-    console.log('Cookie:', req.cookies['auth-token']); // Log the cookie value
-    next();
-  });
 app.use(pathNotFound)
 app.use(errorValidation)
 

@@ -6,13 +6,14 @@ import { useForm }         from 'react-hook-form';
 import { registerSchema }  from '@/Schemas/FormSchema';
 import { z }               from 'zod';
 import { Button }          from '@/components/ui/button';
-import { useMutation }     from '@tanstack/react-query';
+import { useMutation, useQueryClient }     from '@tanstack/react-query';
 import { useRegister }     from '@/services/api/Auth';
 import { zodResolver }     from '@hookform/resolvers/zod';
 import { useEffect }       from 'react';
 import toast               from 'react-hot-toast';
 import { AxiosError }      from 'axios';
 import { useNavigate }     from 'react-router-dom';
+import useMetaTags from '@/hooks/useMetaTags';
 
 export type RegisterFormProps = z.infer<typeof registerSchema>
 
@@ -21,11 +22,15 @@ function isAxiosError(error: any): error is AxiosError {
 }
 const Register = () => {
 
+  useMetaTags('Signup-RentRoom', 'Sign up to RentRoom and find a place for your stay castion')
+  const queryClient = useQueryClient()
   const navigate = useNavigate();
   const UserRegister = useMutation({
     mutationFn:useRegister,
      onSuccess:() => {
             navigate('/')
+            queryClient.invalidateQueries({queryKey:['verifyToken']})
+            toast.success('Successfully Register')
         }
   })
 
@@ -63,27 +68,7 @@ const Register = () => {
     }
   },[formState, isSubmitSuccessful,reset]);
 
-  useEffect(() => {
-    if (errors.password) {
-      toast.error(errors.password.message!);
-    }
-    if(errors.email){
-        toast.error(errors.email.message!);
-    }
-    if(errors.firstName){
-      toast.error(errors.firstName.message!);
-    }
-    if(errors.lastName){
-    toast.error(errors.lastName.message!);
-    }
-    if(errors.password_confirmation){
-    toast.error(errors.password_confirmation.message!);
-    }
-  }, [errors.password,
-      errors.email, 
-      errors.firstName,
-      errors.lastName, 
-      errors.password_confirmation]);
+  
 
 
   return (
@@ -99,6 +84,7 @@ const Register = () => {
                   className="border rounded text-gray-700 focus:text-gray-700  w-full py-1 px-2 font-normal" 
                   {...register("firstName")}
                 />
+                 <p className='text-red-400'>{errors.firstName?.message}</p>
               </label>
               <label className='register-login-label'>
                 Last Name
@@ -106,6 +92,7 @@ const Register = () => {
                   className="border rounded text-gray-700 focus:text-gray-700  w-full py-1 px-2 font-normal" 
                   {...register("lastName") } 
                 />
+                 <p className='text-red-400'>{errors.lastName?.message}</p>
               </label>
             </div>
             <label className='register-login-label'>
@@ -115,6 +102,7 @@ const Register = () => {
                   className="border rounded w-full text-gray-700 focus:text-gray-700 py-1 px-2 font-normal" 
                   {...register("email") } 
                 />
+                 <p className='text-red-400'>{errors.email?.message}</p>
             </label>
             <label className='register-login-label'>
                 Password
@@ -123,6 +111,7 @@ const Register = () => {
                   className="border rounded w-full text-gray-700 focus:text-gray-700  py-1 px-2 font-normal" 
                   {...register("password") } 
                 />
+                 <p className='text-red-400'>{errors.password?.message}</p>
             </label>
             <label className='register-login-label'>
                 Confirm Password
@@ -131,6 +120,7 @@ const Register = () => {
                     className="border rounded text-gray-700 focus:text-gray-700  w-full py-1 px-2 font-normal" 
                     {...register("password_confirmation")} 
                 />
+                 <p className='text-red-400'>{errors.password_confirmation?.message}</p>
             </label>
             <div>
               <Button disabled={isSubmitting } type='submit' className='button-auth-form bg-white hover:bg-bleached-cedar-300 dark:hover:bg-bleached-cedar-700 dark:bg-bleached-cedar-950'>{isSubmitting ? 'Loading..' : 'Create Account'}</Button>
