@@ -1,4 +1,5 @@
-import BoxReveal from "../magicui/box-reveal"
+import BoxReveal from "@/components/magicui/BoxReveal"
+
 
 const Hero = () => {
   return (
