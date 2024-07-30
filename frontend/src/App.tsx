@@ -6,8 +6,11 @@ import Layout from './layout/Layout'
 import Register from './Page/publicPage/Register'
 import { Toaster }       from 'react-hot-toast';
 import Login from './Page/publicPage/Login';
+import { useAppContext } from './context/AppContext';
+import AddHotel from './Page/authenticated/AddHotel';
 
 function App() {
+  const {isLoggin} = useAppContext()
 
   return (
     <>
@@ -21,6 +24,12 @@ function App() {
         </Layout>}/>
         <Route path="/sign-up" element={<Register/>}/>
         <Route path='/sign-in' element={<Login/>}/>
+        {isLoggin && (
+          <>
+          <Route path='/add-hotel' element={<AddHotel/>}/>
+          
+          </>
+        )}
         <Route path='*' element={<Navigate to='/'/>}/>
     </Routes>
     </>
