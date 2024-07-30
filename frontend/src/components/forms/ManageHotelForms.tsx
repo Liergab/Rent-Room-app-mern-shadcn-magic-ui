@@ -7,6 +7,7 @@ import FacilitiesFormSection from "./FacilitiesFormSection";
 import GuestsSection from "./GuestsSection";
 import { Button } from "../ui/button";
 import useMetaTags from "@/hooks/useMetaTags";
+import ImageFormSection from "./ImageFormSection";
 
 
 
@@ -32,6 +33,7 @@ const ManageHotelForms = () => {
 
   const onSubmit = (value:HotelFormData) => {
     console.log(value)
+    console.log(value.imageFiles);
   }
 
   return (
@@ -41,6 +43,7 @@ const ManageHotelForms = () => {
       <TypesFormSection/>
       <FacilitiesFormSection/>
       <GuestsSection/>
+      <ImageFormSection/>
       <Button type="submit" > submit</Button>
     </form>
    </FormProvider>

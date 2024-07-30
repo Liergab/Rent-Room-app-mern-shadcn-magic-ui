@@ -27,4 +27,5 @@ export const hotelFormDataSchema = z.object({
     starRating: z.number().min(1, "Star rating must be at least 1").max(5, "Star rating must be at most 5"),
     facilities: z.array(z.string()).min(1, "At least one facility is required"),
     pricePerNight: z.number().positive("Price per night must be positive"),
+    imageFiles: z.instanceof(FileList).optional().refine(files => files?.length > 0, 'At least one image file is required'),
 });
