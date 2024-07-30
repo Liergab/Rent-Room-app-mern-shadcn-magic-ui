@@ -2,6 +2,11 @@ import { hotelFormDataSchema } from "@/Schemas/FormSchema"
 import { FormProvider, useForm } from "react-hook-form";
 import DetailsFormSection from "./DetailsFormSection";
 import { zodResolver } from "@hookform/resolvers/zod";
+import TypesFormSection from "./TypesFormSection";
+import FacilitiesFormSection from "./FacilitiesFormSection";
+import GuestsSection from "./GuestsSection";
+import { Button } from "../ui/button";
+import useMetaTags from "@/hooks/useMetaTags";
 
 
 
@@ -20,15 +25,23 @@ export type HotelFormData = {
 }
 
 const ManageHotelForms = () => {
-
+  useMetaTags('Add-Room', 'Adding Room For Client')
   const formMethods = useForm<HotelFormData>({
     resolver:zodResolver(hotelFormDataSchema)
   });
 
+  const onSubmit = (value:HotelFormData) => {
+    console.log(value)
+  }
+
   return (
    <FormProvider {...formMethods}>
-    <form action="">
+    <form onSubmit={formMethods.handleSubmit(onSubmit)} className="flex flex-col gap-10">
       <DetailsFormSection/>
+      <TypesFormSection/>
+      <FacilitiesFormSection/>
+      <GuestsSection/>
+      <Button type="submit" > submit</Button>
     </form>
    </FormProvider>
   )
