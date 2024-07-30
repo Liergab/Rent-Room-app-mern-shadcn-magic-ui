@@ -14,6 +14,7 @@ import toast from 'react-hot-toast';
 import { AxiosError } from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import useMetaTags from '@/hooks/useMetaTags';
+import { useAppContext } from '@/context/AppContext';
 
 export type LoginFormProps = z.infer<typeof loginSchema>
 
@@ -22,13 +23,16 @@ function isAxiosError(error: any): error is AxiosError {
 }
 const Login = () => {
   useMetaTags('Login-RentRoom', 'Sign in  to RentRoom and find a place for your stay castion')
+  const {setIsLoggin} = useAppContext()
   const queryClient = useQueryClient()
   const navigate = useNavigate();
   const UserLogin = useMutation({
     mutationFn:useLogin,
      onSuccess:() => {
             toast.success('successfully register')
+            setIsLoggin(true)
             queryClient.invalidateQueries({queryKey:['verifyToken']})
+            
             navigate('/')
         }
   })

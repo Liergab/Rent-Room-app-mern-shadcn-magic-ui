@@ -1,10 +1,11 @@
-import React from 'react'
+import ManageHotelForms from "@/components/forms/ManageHotelForms"
+
 
 const AddHotel = () => {
   return (
-    <div>
-        {/* <ManageHotelForms/> */}
-        hotel
+    <div className="container">
+        <ManageHotelForms/>
+    
     </div>
   )
 }

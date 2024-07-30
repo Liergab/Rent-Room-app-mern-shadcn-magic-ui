@@ -1,35 +1,40 @@
-/* eslint-disable react-refresh/only-export-components */
-import { ValidateToken } from '@/services/api/Auth';
 import React, { useContext, useEffect, useState } from 'react';
+import { ValidateToken } from '@/services/api/Auth';
 
-type AppContext = {
-    isLoggin: boolean;
-    setIsLoggin:React.Dispatch<React.SetStateAction<boolean>>
+type AppContextType = {
+  isLoggin: boolean;
+  setIsLoggin: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const AppContext = React.createContext<AppContext | undefined>(undefined);
+const AppContext = React.createContext<AppContextType | undefined>(undefined);
 
 export const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
-    const [isLoggin, setIsLoggin] = useState<boolean>(false);
-   
-    const { data, isLoading, isError} = ValidateToken();
-   
+  const [isLoggin, setIsLoggin] = useState<boolean>(() => {
+    return JSON.parse(localStorage.getItem('isLoggin') || 'false');
+  });
 
-    useEffect(() => {
-        if (!isLoading) {
-            setIsLoggin(!isError && data);
-        }
-    }, [isLoading, isError, data]);
+  const { data, isLoading, isError } = ValidateToken();
 
+  useEffect(() => {
+    if (!isLoading) {
+      const loggedIn = !isError && !!data;
+      setIsLoggin(loggedIn);
+      localStorage.setItem('isLoggin', JSON.stringify(loggedIn));
+    }
+  }, [isLoading, isError, data]);
 
-    return (
-        <AppContext.Provider value={{ isLoggin, setIsLoggin }}>
-            {children}
-        </AppContext.Provider>
-    );
+  return (
+    <AppContext.Provider value={{ isLoggin, setIsLoggin }}>
+      {children}
+    </AppContext.Provider>
+  );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAppContext = () => {
-    const context = useContext(AppContext);
-    return context as AppContext;
+  const context = useContext(AppContext);
+  if (!context) {
+    throw new Error('useAppContext must be used within an AppContextProvider');
+  }
+  return context;
 };

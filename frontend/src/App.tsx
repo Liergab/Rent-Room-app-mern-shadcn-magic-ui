@@ -11,7 +11,6 @@ import AddHotel from './Page/authenticated/AddHotel';
 
 function App() {
   const {isLoggin} = useAppContext()
-
   return (
     <>
       <Toaster position='top-right'  toastOptions={{duration:5000}} />
@@ -24,12 +23,7 @@ function App() {
         </Layout>}/>
         <Route path="/sign-up" element={<Register/>}/>
         <Route path='/sign-in' element={<Login/>}/>
-        {isLoggin && (
-          <>
-          <Route path='/add-hotel' element={<AddHotel/>}/>
-          
-          </>
-        )}
+        {isLoggin == true && <Route path='/add-hotel' element={<Layout><AddHotel/></Layout>}/>}
         <Route path='*' element={<Navigate to='/'/>}/>
     </Routes>
     </>
