@@ -8,6 +8,11 @@ import { ZodError } from "zod";
 
 export const  createMyHotels = async(req:Request, res:Response, next:NextFunction) => {
     try {
+        req.body.adultCount = Number(req.body.adultCount);
+        req.body.childCount = Number(req.body.childCount);
+        req.body.pricePerNight = Number(req.body.pricePerNight);
+        req.body.starRating = Number(req.body.starRating);
+        
         createHotelValidation.parse(req.body)
         const imageFiles = req.files as Express.Multer.File[] 
         const newHotel:HotelType = req.body
@@ -20,6 +25,7 @@ export const  createMyHotels = async(req:Request, res:Response, next:NextFunctio
         const imageUrls = await Promise.all(uploadPromise)
         newHotel.imageUrls = imageUrls
         newHotel.userId = req.user?.id!
+     
 
         const hotel = await MyHotelImplementation.createHotel(newHotel)
 

@@ -9,5 +9,6 @@ export const createHotelValidation = z.object({
     adultCount: z.number().min(1, "At least one adult is required"),
     childCount: z.number().nonnegative("Child count cannot be negative"),
     facilities: z.array(z.string()).min(1, "At least one facility is required"),
+    starRating: z.number().min(1, "Star rating must be at least 1").max(5, "Star rating must be at most 5"),
     pricePerNight: z.number().positive("Price per night must be positive"),
 });
