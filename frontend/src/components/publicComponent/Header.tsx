@@ -6,7 +6,18 @@ import { useMutation, useQueryClient }       from "@tanstack/react-query"
 import { useLogout }         from "@/services/api/Auth"
 import toast                 from "react-hot-toast"
 import logo                  from '../../assets/images/rr-logo.png'
+import { CiMenuFries } from "react-icons/ci";
 import React from "react"
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarTrigger,
+} from "@/components/ui/menubar"
+
 
 
 const Header = () => {
@@ -35,10 +46,10 @@ const Header = () => {
         <div className="container mx-auto flex items-center justify-between">
             <span className="text-3xl  font-bold tracking-tight">
                 <Link to='/' className="">
-                    <img src={logo} alt=""  className=" w-28 md:w-40"/>
+                    <img src={logo} alt=""  className=" w-32 md:w-40"/>
                 </Link>
             </span>
-            <span className="flex items-center space-x-4">
+            <span className="hidden md:flex items-center space-x-4 ">
                 {
                     isLoggin ? 
                     <React.Fragment>
@@ -62,6 +73,53 @@ const Header = () => {
 
                 <DarkModeToggle/>
             </span>
+            <div className=" inline md:hidden">
+            <Menubar className="border border-bleached-cedar-800">
+              <MenubarMenu>
+                <MenubarTrigger><CiMenuFries color="#80498a" className="text-base font-bold"/></MenubarTrigger>
+                <MenubarContent>
+                {
+                    isLoggin && <>
+                      <MenubarItem>
+                        <Link to='/my-bookings' className="navlinks-hover">
+                              <h1 className="navlinks-text">Booking</h1>
+                        </Link>
+                      </MenubarItem>
+                    
+                    </>
+                  }
+
+                  {
+                    isLoggin && <>
+                     <MenubarItem>
+                      <Link to='/my-hotel' className="navlinks-hover">
+                        <h1 className="navlinks-text">My Hotels</h1>
+                      </Link>
+                    </MenubarItem>
+                    </>
+                  }
+                  {isLoggin && <><MenubarSeparator /></>}
+                  <MenubarItem>
+                    {isLoggin ? <>
+                      <Button variant="outline" className="button-navbar text-bleached-cedar-700"   type="button" onClick={logoutButton}>
+                        Sign out
+                     </Button>
+                    </>:<>
+                    <Link to='/sign-in'>
+                            <Button variant="outline"  className="button-navbar " type="button">Sign in</Button>
+                        </Link>
+                    </>
+                    
+                  }
+                  </MenubarItem>
+                  <MenubarItem>
+                      <DarkModeToggle/>
+                  </MenubarItem>
+                </MenubarContent>
+              </MenubarMenu>
+            </Menubar>
+            </div>
+          
         </div>
     </div>
   )
