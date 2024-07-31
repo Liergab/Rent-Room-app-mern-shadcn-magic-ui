@@ -5,8 +5,8 @@ import hotelRouter from './myHotel'
 
 const rootRouter = express.Router()
 
-rootRouter.use('/api/v1/users/', userRouter)
-rootRouter.use('/api/v1/auth/', authRouter)
-rootRouter.use('/api/v1/', hotelRouter)
+rootRouter.use('/v1/users/', userRouter)
+rootRouter.use('/v1/auth/', authRouter)
+rootRouter.use('/v1/', hotelRouter)
 
 export default rootRouter
