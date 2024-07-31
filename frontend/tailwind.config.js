@@ -33,6 +33,7 @@ module.exports = {
         '800': '#80498a',
         '900': '#67406f',
         '950': '#2a1a2d',
+        'dark':'#3D3B40'
     },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -103,6 +104,7 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
         orbit: "orbit calc(var(--duration)*1s) linear infinite",
         grid: "grid 15s linear infinite",
+        
       },
     },
   },

@@ -95,3 +95,19 @@
     @apply rounded-xl border-2 border-bleached-cedar-800  dark:bg-bleached-cedar-950 text-bleached-cedar-700 dark:text-bleached-cedar-400 shadow-xl text-xs w-16 h-8 md:w-32 md:h-10 md:text-base;
   }
 }
+
+.glow1{
+  width: 0px;
+  height: 0px;
+  border-radius: 50%;
+  box-shadow: 0 0 300px 60px #8b5cf6; /* outer cyan */
+  
+  }
+
+  .glow2{
+    width: 0px;
+    height: 0px;
+    border-radius: 50%;
+    box-shadow: 0 0 900px 100px #10b981; /* outer cyan */
+    
+    }
