@@ -49,3 +49,13 @@ export const  createMyHotels = async(req:Request, res:Response, next:NextFunctio
         next(error)
     }
 }
+
+
+export const getAllRoomById = async(req:Request, res:Response, next:NextFunction) => {
+    try {
+        const room = await MyHotelImplementation.getAllRoomById(req.user?.id!)
+        res.status(200).json(room)
+    } catch (error) {
+        next(error)
+    }
+}

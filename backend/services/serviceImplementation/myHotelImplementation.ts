@@ -7,6 +7,11 @@ class MyHotelImplementation implements MyHotelServices{
     async createHotel(hotelData: HotelType): Promise<HotelType> {
         return MyHotelRepository.createHotel(hotelData)
     }
+
+    async getAllRoomById(id: string): Promise<HotelType[]> {
+        const room = await MyHotelRepository.getAllRoomById(id)
+        return room;
+    }
 }
 
 export default new MyHotelImplementation()
