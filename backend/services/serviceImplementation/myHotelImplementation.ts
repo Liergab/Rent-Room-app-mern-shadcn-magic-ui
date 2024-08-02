@@ -12,6 +12,15 @@ class MyHotelImplementation implements MyHotelServices{
         const room = await MyHotelRepository.getAllRoomById(id)
         return room;
     }
+
+    async getRoomById(id: string): Promise<HotelType | null> {
+        const room = await MyHotelRepository.getRoomById(id)
+        return room;
+    }
+
+    async updateRoom(id: string, update: Partial<HotelType>): Promise<HotelType | null> {
+        return  MyHotelRepository.updateRoom(id, update)
+    }
 }
 
 export default new MyHotelImplementation()
