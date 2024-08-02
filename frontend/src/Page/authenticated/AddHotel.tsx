@@ -1,14 +1,19 @@
 import ManageHotelForms  from "@/components/forms/ManageHotelForms"
 import { useCreateRoom } from "@/services/api/Room"
-import { useMutation }   from "@tanstack/react-query"
+import { useMutation, useQueryClient }   from "@tanstack/react-query"
 import toast             from "react-hot-toast"
+import { useNavigate } from "react-router-dom"
 
 
 const AddHotel = () => {
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
   const createRoom = useMutation({
     mutationFn:useCreateRoom,
     onSuccess:()=> {
+      queryClient.invalidateQueries({queryKey:['getAllRoomByOwner']})
       toast.success('Room Added!')
+      navigate('/my-hotel')
     },
     onError:(error)=>{
       console.log(error)
