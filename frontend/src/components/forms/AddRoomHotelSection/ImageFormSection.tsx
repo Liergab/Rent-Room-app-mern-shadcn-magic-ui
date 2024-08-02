@@ -5,7 +5,7 @@ import { HotelFormData }   from '../ManageHotelForms';
 const ImageFormSection: React.FC = () => {
   const { register,watch, setValue, formState: { errors } } = useFormContext<HotelFormData>();
   const existingImageUrls = watch("imageUrls")
-  console.log(existingImageUrls)
+  
   const handleDelete = (event:React.MouseEvent<HTMLButtonElement,MouseEvent>, imageUrl:string) => {
       event.preventDefault();
      setValue('imageUrls', existingImageUrls.filter((url) => url !== imageUrl))

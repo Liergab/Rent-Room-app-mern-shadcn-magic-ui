@@ -10,7 +10,7 @@ import { FaRegStar }            from "react-icons/fa6";
 
 const MyRooms = () => {
     const {data:hotelData,isLoading} = useGetAllRoomByOwner()
-    console.log(hotelData)
+   
     if(isLoading){
         return "loading.."
     }

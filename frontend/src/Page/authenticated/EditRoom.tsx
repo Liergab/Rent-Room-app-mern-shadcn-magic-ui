@@ -10,8 +10,6 @@ const EditRoom = () => {
   const { data: hotel, isLoading } = useGetRoomById(id!)
   const queryClient = useQueryClient()
   const navigate = useNavigate()
-  const roomId = hotel?._id
-  console.log(roomId)
   const updateRoom = useMutation({
     mutationFn: useUpdateRoom,
     onSuccess: () => {
@@ -25,7 +23,7 @@ const EditRoom = () => {
 
   const handleSave = async (hotelFormData: FormData) => {
     if (id) {
-      await updateRoom.mutateAsync({ id:roomId, roomData: hotelFormData })
+      await updateRoom.mutateAsync({ id:id, roomData: hotelFormData })
     } else {
       toast.error('Room ID is missing')
     }
