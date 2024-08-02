@@ -30,7 +30,7 @@ const MyRooms = () => {
                             <img key={index} src={imageUrl}  alt={`Hotel ${hotel.name} - ${index + 1}`} className='col-span-1  z-50 rounded h-20 w-60' />
                         ))}
                     </div>
-                    <div className='inlind md:hidden'>
+                    <div className='inline md:hidden'>
                        
                             <img src={hotel.imageUrls[0]}  alt={hotel.name} className='col-span-1  z-50 rounded h-40 w-60' />
                        
