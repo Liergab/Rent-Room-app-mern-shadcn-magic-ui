@@ -28,3 +28,26 @@ export const useGetAllRoomByOwner = ():UseQueryResult<RoomType[]>=> {
         }
     })
 }
+
+
+export const useGetRoomById = (id:string)=> {
+    return useQuery({
+        queryKey:['getRoomById', id],
+        queryFn:async() => {
+            const response = await axios.get(`${BASE_URL}api/v1/my-hotels/${id}`,{
+                withCredentials:true
+            })
+            return response.data
+        }
+    })
+}
+
+export const useUpdateRoom = async({id,roomData}:{id:string, roomData:FormData}) => {
+    const response = await axios.put(`${BASE_URL}api/v1/my-hotels/${id}`, roomData,{
+        headers:{
+            'content-type':'multipart/form-data'
+        },
+        withCredentials:true
+    })
+    return response.data
+}

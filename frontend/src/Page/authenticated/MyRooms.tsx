@@ -7,8 +7,10 @@ import { BsBuilding }           from "react-icons/bs";
 import { LuUsers }              from "react-icons/lu";
 import { FaRegStar }            from "react-icons/fa6";
 
+
 const MyRooms = () => {
     const {data:hotelData,isLoading} = useGetAllRoomByOwner()
+    console.log(hotelData)
     if(isLoading){
         return "loading.."
     }
@@ -20,6 +22,7 @@ const MyRooms = () => {
                 <Button type='button' className=''>Add Room</Button>
             </Link>
         </span>
+        {hotelData?.length === 0 && <h1>No Room Found</h1>}
         <div className='flex flex-col gap-4'>
             {hotelData?.map((hotel) => (
                 <div className='flex flex-col gap-4 border border-bleached-cedar-800 p-8 rounded' key={hotel._id}>
@@ -55,7 +58,10 @@ const MyRooms = () => {
                         </div>
                     </div>
                     <div className='flex flex-row-reverse'>
-                        <Button>Edit</Button>
+                        <Link to={`/edit-hotel/${hotel?._id}`}>
+                            <Button>View Details</Button>
+                        </Link>
+                        
                     </div>
                 </div>
             ))}

@@ -29,6 +29,7 @@ const Header = () => {
         onSuccess: () => {
             toast.success('Logout successfull')
           queryClient.invalidateQueries({queryKey:['verifyToken']})
+          queryClient.resetQueries({queryKey:['getAllRoomByOwner']})
             navigate('/');
           },
           onError: (error) => {
@@ -38,6 +39,7 @@ const Header = () => {
 
     const logoutButton = () => {
             LogoutUser.mutateAsync();   
+            
     }
     
   return (

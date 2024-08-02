@@ -9,6 +9,7 @@ import GuestsSection             from "./AddRoomHotelSection/GuestsSection";
 import { Button }                from "../ui/button";
 import useMetaTags               from "@/hooks/useMetaTags";
 import ImageFormSection          from "./AddRoomHotelSection/ImageFormSection";
+import { RoomType } from "@/types";
 
 
 
@@ -22,23 +23,37 @@ export type HotelFormData = {
   starRating:number;
   facilities:string[];
   imageFiles: FileList;
+  imageUrls : string[];
   adultCount:number;
   childCount:number;
 }
 
 type props = {
+  hotel?:RoomType;
   onSave :(hotelFormData:FormData) => void;
   isLoading: boolean;
 }
 
-const ManageHotelForms:React.FC<props> = ({onSave,isLoading}) => {
+const ManageHotelForms:React.FC<props> = ({onSave,isLoading, hotel}) => {
   useMetaTags('Add-Room', 'Adding Room For Client')
   const formMethods = useForm<HotelFormData>({
-    resolver:zodResolver(hotelFormDataSchema)
+    resolver:zodResolver(hotelFormDataSchema),
   });
+
+  useEffect(() =>{
+    if (hotel) {
+      formMethods.reset({
+        ...hotel,
+        imageFiles: new DataTransfer().files, // Initialize imageFiles to an empty FileList
+      });
+    }
+  },[formMethods, hotel])
 
   const onSubmit = (value:HotelFormData) => {
     const formData = new FormData();
+    if(hotel){
+      formData.append("hotelId", hotel._id)
+    }
     formData.append("name", value.name);
     formData.append("city", value.city);
     formData.append("country", value.country);
@@ -51,6 +66,14 @@ const ManageHotelForms:React.FC<props> = ({onSave,isLoading}) => {
     value.facilities.forEach((facility, index) => {
       formData.append(`facilities[${index}]` ,facility)
     })
+
+    //when updating
+    if(value.imageUrls){
+        value.imageUrls.forEach((url, index) => {
+          formData.append(`imageUrls[${index}]`, url)
+      })
+    }
+    //when creating or add room
     Array.from(value.imageFiles).forEach((imageFile) => {
         formData.append(`imageFiles`, imageFile)
     })
