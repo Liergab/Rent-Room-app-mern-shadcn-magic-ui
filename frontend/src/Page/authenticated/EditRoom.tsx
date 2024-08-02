@@ -22,11 +22,9 @@ const EditRoom = () => {
   if(isLoading || updateRoom.isPending) return 
 
   const handleSave = async (hotelFormData: FormData) => {
-    if (id) {
-      await updateRoom.mutateAsync({ id:id, roomData: hotelFormData })
-    } else {
-      toast.error('Room ID is missing')
-    }
+  
+      await updateRoom.mutateAsync(hotelFormData)
+    
   }
 
   return (

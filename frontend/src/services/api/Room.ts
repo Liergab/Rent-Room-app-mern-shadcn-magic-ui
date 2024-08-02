@@ -42,8 +42,8 @@ export const useGetRoomById = (id:string)=> {
     })
 }
 
-export const useUpdateRoom = async({id,roomData}:{id:string, roomData:FormData}) => {
-    const response = await axios.put(`${BASE_URL}api/v1/my-hotels/${id}`, roomData,{
+export const useUpdateRoom = async(roomData:FormData) => {
+    const response = await axios.put(`${BASE_URL}api/v1/my-hotels/${roomData.get('hotelId')}`, roomData,{
         headers:{
             'content-type':'multipart/form-data'
         },

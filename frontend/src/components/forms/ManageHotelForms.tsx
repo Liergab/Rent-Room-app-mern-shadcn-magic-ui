@@ -40,6 +40,7 @@ const ManageHotelForms:React.FC<props> = ({onSave,isLoading, hotel}) => {
     resolver:zodResolver(hotelFormDataSchema),
   });
 
+
   useEffect(() =>{
     if (hotel) {
       formMethods.reset({
