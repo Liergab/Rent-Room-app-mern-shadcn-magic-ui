@@ -43,10 +43,7 @@ const ManageHotelForms:React.FC<props> = ({onSave,isLoading, hotel}) => {
 
   useEffect(() =>{
     if (hotel) {
-      formMethods.reset({
-        ...hotel,
-        imageFiles: new DataTransfer().files, // Initialize imageFiles to an empty FileList
-      });
+    formMethods.reset(hotel)
     }
   },[formMethods, hotel])
 
