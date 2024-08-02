@@ -38,14 +38,27 @@ const ManageHotelForms:React.FC<props> = ({onSave,isLoading, hotel}) => {
   useMetaTags('Add-Room', 'Adding Room For Client')
   const formMethods = useForm<HotelFormData>({
     resolver:zodResolver(hotelFormDataSchema),
+    defaultValues: {
+      name: hotel?.name || '',
+      city: hotel?.city || '',
+      country: hotel?.country || '',
+      description: hotel?.description || '',
+      type: hotel?.type || '',
+      pricePerNight: hotel?.pricePerNight || 0,
+      starRating: hotel?.starRating || 0,
+      facilities: hotel?.facilities || [],
+      imageUrls: hotel?.imageUrls || [],
+      adultCount: hotel?.adultCount || 0,
+      childCount: hotel?.childCount || 0,
+    },
   });
 
 
-  useEffect(() =>{
-    if (hotel) {
-    formMethods.reset(hotel)
-    }
-  },[formMethods, hotel])
+  // useEffect(() =>{
+  //   if (hotel) {
+  //   formMethods.reset(hotel)
+  //   }
+  // },[formMethods, hotel])
 
   const onSubmit = (value:HotelFormData) => {
     const formData = new FormData();
