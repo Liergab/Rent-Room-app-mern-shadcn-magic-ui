@@ -20,7 +20,7 @@ export const  createMyHotels = async(req:Request, res:Response, next:NextFunctio
             const b64 = Buffer.from(image.buffer).toString("base64")
             let dataUri="data:" + image.mimetype + ";base64," + b64;
             const res = await cloudinary.v2.uploader.upload(dataUri)
-            return res.url;
+            return res.secure_url;
         })
         const imageUrls = await Promise.all(uploadPromise)
         newHotel.imageUrls = imageUrls
@@ -84,7 +84,7 @@ export const updateRoom = async(req:Request,res:Response,next:NextFunction) => {
            const b64 = Buffer.from(image.buffer).toString("base64")
            let dataUri="data:" + image.mimetype + ";base64," + b64;
            const res = await cloudinary.v2.uploader.upload(dataUri)
-           return res.url;
+           return res.secure_url;
        })
        const imageUrls = await Promise.all(uploadPromise)
        updateRoom.imageUrls = imageUrls
