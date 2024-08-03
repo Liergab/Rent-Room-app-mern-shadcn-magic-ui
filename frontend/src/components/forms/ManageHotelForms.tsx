@@ -36,6 +36,9 @@ type props = {
 
 const ManageHotelForms:React.FC<props> = ({onSave,isLoading, hotel}) => {
   useMetaTags('Add-Room', 'Adding Room For Client')
+  if(hotel){
+    console.log('hotel',hotel)
+  }
   const formMethods = useForm<HotelFormData>({
     resolver:zodResolver(hotelFormDataSchema),
     defaultValues: {

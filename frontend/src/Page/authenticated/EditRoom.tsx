@@ -19,6 +19,8 @@ const EditRoom = () => {
     }
   })
 
+  console.log('params id', id)
+
   if(isLoading || updateRoom.isPending) return 
 
   const handleSave = async (hotelFormData: FormData) => {
