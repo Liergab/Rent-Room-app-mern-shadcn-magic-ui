@@ -56,11 +56,23 @@ const ManageHotelForms:React.FC<props> = ({onSave,isLoading, hotel}) => {
   });
 
 
-  // useEffect(() =>{
-  //   if (hotel) {
-  //   formMethods.reset(hotel)
-  //   }
-  // },[formMethods, hotel])
+  useEffect(() => {
+    if (hotel) {
+      formMethods.reset({
+        name: hotel.name,
+        city: hotel.city,
+        country: hotel.country,
+        description: hotel.description,
+        type: hotel.type,
+        pricePerNight: hotel.pricePerNight,
+        starRating: hotel.starRating,
+        facilities: hotel.facilities,
+        imageUrls: hotel.imageUrls,
+        adultCount: hotel.adultCount,
+        childCount: hotel.childCount,
+      });
+    }
+  }, [hotel, formMethods]);
 
   const onSubmit = (value:HotelFormData) => {
     const formData = new FormData();
