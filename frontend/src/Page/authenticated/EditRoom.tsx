@@ -8,6 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 const EditRoom = () => {
   const { id } = useParams() 
   const { data: hotel, isLoading } = useGetRoomById(id!)
+  console.log('edit', hotel)
   const queryClient = useQueryClient()
   const navigate = useNavigate()
   const updateRoom = useMutation({

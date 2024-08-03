@@ -16,6 +16,6 @@ const upload = multer({
 hotelRouter.post("/my-hotels",authMiddleware,upload.array('imageFiles',6) ,controller.createMyHotels)
 hotelRouter.get("/my-hotels",authMiddleware, controller.getAllRoomById)
 hotelRouter.get("/my-hotels/:id", authMiddleware, controller.getRoomById)
-hotelRouter.put("/my-hotels/:id",upload.array('imageFiles',6), authMiddleware, controller.updateRoom)
+hotelRouter.put("/my-hotels/:id",authMiddleware,upload.array('imageFiles',6), controller.updateRoom)
 
 export default hotelRouter

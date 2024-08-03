@@ -39,38 +39,13 @@ const ManageHotelForms:React.FC<props> = ({onSave,isLoading, hotel}) => {
     console.log('hotel',hotel)
   }
   const formMethods = useForm<HotelFormData>({
-    resolver:zodResolver(hotelFormDataSchema),
-    defaultValues: {
-      name: hotel?.name || '',
-      city: hotel?.city || '',
-      country: hotel?.country || '',
-      description: hotel?.description || '',
-      type: hotel?.type || '',
-      pricePerNight: hotel?.pricePerNight || 0,
-      starRating: hotel?.starRating || 0,
-      facilities: hotel?.facilities || [],
-      imageUrls: hotel?.imageUrls || [],
-      adultCount: hotel?.adultCount || 0,
-      childCount: hotel?.childCount || 0,
-    },
+    resolver:zodResolver(hotelFormDataSchema)
   });
 
 
   useEffect(() => {
     if (hotel) {
-      formMethods.reset({
-        name: hotel.name,
-        city: hotel.city,
-        country: hotel.country,
-        description: hotel.description,
-        type: hotel.type,
-        pricePerNight: hotel.pricePerNight,
-        starRating: hotel.starRating,
-        facilities: hotel.facilities,
-        imageUrls: hotel.imageUrls,
-        adultCount: hotel.adultCount,
-        childCount: hotel.childCount,
-      });
+      formMethods.reset(hotel);
     }
   }, [hotel, formMethods]);
 
@@ -111,7 +86,7 @@ const ManageHotelForms:React.FC<props> = ({onSave,isLoading, hotel}) => {
     if(formMethods.formState.isSubmitSuccessful){
       formMethods.reset()
     }
-  },[formMethods.formState, formMethods.formState.isSubmitSuccessful, formMethods.reset, formMethods])
+  },[formMethods])
 
   return (
    <FormProvider {...formMethods}>
