@@ -1,4 +1,5 @@
 import {z} from 'zod'
+import { HotelType } from '../model/HOTEL_MODEL';
 
 export const createHotelValidation = z.object({
     name: z.string().min(1, 'Name required'),
@@ -12,3 +13,13 @@ export const createHotelValidation = z.object({
     starRating: z.number().min(1, "Star rating must be at least 1").max(5, "Star rating must be at most 5"),
     pricePerNight: z.number().positive("Price per night must be positive"),
 });
+
+
+export type HotelSearchResponse = {
+    data:HotelType[],
+    pagination:{
+        total:number;
+        page:number;
+        pages:number;
+    }
+}
