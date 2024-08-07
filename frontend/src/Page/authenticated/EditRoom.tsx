@@ -13,16 +13,18 @@ const EditRoom = () => {
   const navigate = useNavigate()
   const updateRoom = useMutation({
     mutationFn: useUpdateRoom,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['getAllRoomByOwner'] })
-      toast.success('Room Updated!')
-      navigate('/my-hotel')
+    onSuccess:()=> {
+      queryClient.invalidateQueries({queryKey:['getAllRoomByOwner']})
+      toast.success('Room Edited!')
+      setTimeout(() => {
+        navigate('/my-hotel')
+      },2000)
+      
+    },
+    onError:(error)=>{
+      console.log(error)
     }
   })
-
-  console.log('params id', id)
-
-  if(isLoading || updateRoom.isPending) return 
 
   const handleSave = async (hotelFormData: FormData) => {
   

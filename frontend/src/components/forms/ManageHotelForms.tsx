@@ -91,7 +91,8 @@ const ManageHotelForms:React.FC<props> = ({onSave,isLoading, hotel}) => {
   return (
    <FormProvider {...formMethods}>
     <form onSubmit={formMethods.handleSubmit(onSubmit)} className="flex flex-col gap-10 ">
-      <DetailsFormSection/>
+    <h1 className='text-3xl font-bold mb-3'>{hotel ? 'Edit Hotel' : 'Add Hotel'}</h1>
+      <DetailsFormSection/> 
       <TypesFormSection/>
       <FacilitiesFormSection/>
       <GuestsSection/>
