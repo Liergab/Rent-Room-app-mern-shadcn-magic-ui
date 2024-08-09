@@ -16,7 +16,7 @@ const Layout = ({children}:props) => {
         <div className="bg-white dark:bg-zinc-950 flex flex-col min-h-screen ">
             <Header/>
              <Hero/>
-            <div className="container mx-auto md:max-w-none md:px-24 lg:max-w-none lg:px-32">
+            <div className="container mx-auto">
                 <SearchBar/>
             </div>
             <div className="relative bg-white dark:bg-zinc-950 container mx-auto py-10 flex-1 px-4 md:px-0">

@@ -2,10 +2,13 @@ import { useSearchContext }    from '@/context/SearchContext'
 import { FormEvent, useState } from 'react'
 import {MdTravelExplore}       from 'react-icons/md'
 import DatePicker              from 'react-datepicker'
+import { useNavigate }         from 'react-router-dom'
 import "react-datepicker/dist/react-datepicker.css"
 
 
+
 const SearchBar= () => {
+    const navigate = useNavigate()
     const search  = useSearchContext()
     const [destination, setDestination] = useState<string>(search.destination)
     const [checkIn,setCheckIn]          = useState<Date>(search.checkIn)
@@ -16,13 +19,14 @@ const SearchBar= () => {
     const handleSubmit = (event:FormEvent) => {
       event.preventDefault()
       search.saveSearchValues(destination,checkIn,checkOut,adultCount,childCount)
+      navigate('/search')
     }
 
     const minDate = new Date();
     const maxDate =new Date();
     maxDate.setFullYear(maxDate.getFullYear() + 1)
   return (
-    <form onSubmit={handleSubmit} className='-mt-8  p-3 bg-bleached-cedar-400 rounded shadow-md w-full grid grid-cols  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 2xl:grid-cols-5 items-center gap-2 '>
+    <form onSubmit={handleSubmit} className=' -mt-8  p-3 bg-bleached-cedar-400 rounded shadow-md w-full grid grid-cols  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 items-center gap-2 '>
       <div className='flex flex-row items-center flex-1 bg-white p-2'>
         <MdTravelExplore size={25} className='mr-2'/>
         <input 
