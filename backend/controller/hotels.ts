@@ -14,7 +14,7 @@ export const search = async(req:Request,res:Response,next:NextFunction) => {
 
         const hotels = await Hotel.find().skip(skip).limit(pageSize)
         const total = await Hotel.countDocuments()
-        const Response:HotelSearchResponse= {
+        const response:HotelSearchResponse= {
             data:hotels,
             pagination:{
                 total,
