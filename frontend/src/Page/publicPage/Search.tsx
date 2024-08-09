@@ -8,6 +8,7 @@ import { useState } from 'react'
 const Search = () => {
 
   const search = useSearchContext()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [page, setPage] = useState<number>(1)
   const searchParams = {
     destination:search.destination,
