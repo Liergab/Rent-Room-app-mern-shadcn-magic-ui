@@ -1,13 +1,15 @@
 import { HotelType } from '@/types'
 import {AiFillStar} from 'react-icons/ai'
+import { Button } from '../ui/button'
+import { Link } from 'react-router-dom'
 
 
 const SearchResultCard = ({room}:{ room:HotelType}) => {
  
   return (
     <div className='grid grid-cols-1 lg:grid-cols-[2fr_3fr] border border-bleached-cedar-500 rounded-lg p-8 gap-8' key={room._id}>
-         <div className='w-full h-[200px] '>
-           <img src={room?.imageUrls[0]} alt='image' className='w-full h-full object-cover object-center'/>
+         <div className='w-full h-[300px] '>
+           <img src={room?.imageUrls[0]} alt='image' className='w-full h-full object-cover object-center rounded-md'/>
          </div>
          <div className='grid grid-rows-[1fr_2fr_1fr] gap-4'>
             <div>
@@ -19,7 +21,7 @@ const SearchResultCard = ({room}:{ room:HotelType}) => {
                     ))}
                     <span className='ml-1 text-sm'>{room.type}</span>
                 </div>
-                <h2 className='text-2xl font-bold cursor-pointer'>{room.name}</h2>
+                <Link to={`/detail/${room._id}`} className='text-2xl font-bold cursor-pointer'>{room.name}</Link>
             </div>
             <div>
                 <div className='line-clamp-4'>
@@ -35,7 +37,12 @@ const SearchResultCard = ({room}:{ room:HotelType}) => {
                     ))}
                     <span className='text-sm'>{room.facilities.length > 3 && `+${room.facilities.length - 3} more`}</span>
                 </div>
-
+                <div className='flex flex-col items-end gap-1'>
+                    <span className='font-bold'>${room.pricePerNight} per night</span>
+                    <Link to={`detail/${room._id}`}>
+                        <Button className='max-w-fit text-xl'>View More</Button>
+                    </Link>
+                </div>
             </div>
          </div>
     </div>

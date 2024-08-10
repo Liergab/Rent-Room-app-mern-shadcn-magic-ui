@@ -1,3 +1,4 @@
+import { constructSearchQuery } from "../../controller/hotels";
 import { HotelType } from "../../model/HOTEL_MODEL";
 import MyHotelRepository from "../../repository/myHotelRepository";
 import { MyHotelServices } from "../myHotelServices";
@@ -20,6 +21,28 @@ class MyHotelImplementation implements MyHotelServices{
 
     async updateRoom(id: string, update: Partial<HotelType>): Promise<HotelType | null> {
         return  MyHotelRepository.updateRoom(id, update)
+    }
+
+    async searchHotels(queryParams: any) {
+        const query = constructSearchQuery(queryParams);
+
+        let sortOption = {};
+        switch (queryParams.sortOption) {
+            case "starRating":
+                sortOption = { starRating: -1 };
+                break;
+            case "pricePerNightAsc":
+                sortOption = { pricePerNight: 1 };
+                break;
+            case "pricePerNightDesc":
+                sortOption = { pricePerNight: -1 };
+                break;
+        }
+
+        const pageSize = 5;
+        const pageNumber = parseInt(queryParams.page ? queryParams.page.toString() : "1");
+
+        return await MyHotelRepository.searchHotel(query, sortOption, pageSize, pageNumber);
     }
 }
 

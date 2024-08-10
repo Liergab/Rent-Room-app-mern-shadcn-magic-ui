@@ -1,3 +1,4 @@
+import Pagination from '@/components/search/Pagination'
 import SearchResultCard from '@/components/search/SearchResultCard'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useSearchContext } from '@/context/SearchContext'
@@ -8,7 +9,6 @@ import { useState } from 'react'
 const Search = () => {
 
   const search = useSearchContext()
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [page, setPage] = useState<number>(1)
   const searchParams = {
     destination:search.destination,
@@ -58,6 +58,12 @@ const Search = () => {
           {RoomData?.data.map((room:HotelType) => (
             <SearchResultCard room={room} key={room._id}/>
           ))}
+          <div>
+            {RoomData?.pagination.total  === 0 ? ' ' : <>
+              <Pagination page={RoomData?.pagination.page || 1}  pages={RoomData?.pagination.pages || 1} onPageChange={(page) => setPage(page)}/>
+            </>}
+           
+          </div>
       </div>
      
     </div>
