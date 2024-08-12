@@ -39,8 +39,7 @@ class MyHotelImplementation implements MyHotelServices{
                 break;
         }
 
-        // const pageSize = 5;
-        // const pageNumber = parseInt(queryParams.page ? queryParams.page.toString() : "1");
+
 
         return await MyHotelRepository.searchHotel(query, sortOption, pageSize, pageNumber);
     }

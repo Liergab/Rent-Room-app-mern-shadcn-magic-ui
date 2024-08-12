@@ -86,6 +86,7 @@ const Search = () => {
   );
   if (isError) return <div>Error fetching data...</div>;
 
+
   return (
     
     <div className='container grid grid-cols-1 md:grid-cols-[250px_1fr] gap-5'>
@@ -127,7 +128,7 @@ const Search = () => {
             <SearchResultCard room={room} key={room._id}/>
           ))}
           <div>
-            {RoomData?.pagination.total  === 0 ? ' ' : <>
+            {RoomData?.pagination?.total  === 0 ? ' ' : <>
               <Pagination page={RoomData?.pagination.page || 1}  pages={RoomData?.pagination.pages || 1} onPageChange={(page) => setPage(page)}/>
             </>}
            

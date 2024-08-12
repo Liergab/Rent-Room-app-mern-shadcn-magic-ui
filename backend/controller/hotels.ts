@@ -25,6 +25,17 @@ export const search = async(req:Request,res:Response,next:NextFunction) => {
     }
 }
 
+export const getHotelById = async(req:Request,res:Response,next:NextFunction) => {
+  try {
+    const {id} = req.params
+    const hotel = await myHotelImplementation.getRoomById(id)
+
+    res.status(200).json(hotel)
+  } catch (error:any) {
+    next(error)
+  }
+}
+
 export const constructSearchQuery = (queryParams: any) => {
     let constructedQuery: any = {};
   

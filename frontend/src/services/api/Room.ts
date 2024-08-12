@@ -68,7 +68,7 @@ export const useUpdateRoom = async(roomData:FormData) => {
 }
 
 
-export const useSearchRoom = (searchParams: SearchParams) => {
+export const useSearchRoom = (searchParams: SearchParams):UseQueryResult<HotelSearchResponse> => {
     const queryParams = new URLSearchParams();
     queryParams.append("destination", searchParams.destination || "");
     queryParams.append("checkIn", searchParams.checkIn || "");
@@ -104,3 +104,15 @@ export const useSearchRoom = (searchParams: SearchParams) => {
         }
     });
 };
+
+export const UseGetHotelDetailsById = (id:string):UseQueryResult<RoomType> => {
+    return useQuery({
+        queryKey:['hotelDetails', id],
+        queryFn:async():Promise<RoomType> => {
+        const response = await axios.get(`${BASE_URL}api/v1/find/${id}`,{
+            withCredentials:true
+        })
+        return response.data
+        }
+    })
+}

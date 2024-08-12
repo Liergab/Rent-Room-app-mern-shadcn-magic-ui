@@ -35,9 +35,7 @@ type props = {
 
 const ManageHotelForms:React.FC<props> = ({onSave,isLoading, hotel}) => {
  
-  if(hotel){
-    console.log('hotel',hotel)
-  }
+ 
   const formMethods = useForm<HotelFormData>({
     resolver:zodResolver(hotelFormDataSchema)
   });

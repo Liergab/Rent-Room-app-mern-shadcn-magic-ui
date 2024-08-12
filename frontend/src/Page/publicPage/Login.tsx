@@ -1,20 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Footer from '@/components/publicComponent/Footer'
-import Header from '@/components/publicComponent/Header'
-import { useForm } from 'react-hook-form';
+import Footer          from '@/components/publicComponent/Footer'
+import Header          from '@/components/publicComponent/Header'
+import { useForm }     from 'react-hook-form';
 import { loginSchema } from '@/Schemas/FormSchema';
-import { z } from 'zod';
-import { Button } from '@/components/ui/button';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useLogin} from '@/services/api/Auth';
+import { z }           from 'zod';
+import { Button }      from '@/components/ui/button';
+import { useLogin}     from '@/services/api/Auth';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect } from 'react';
-import toast from 'react-hot-toast';
-import { AxiosError } from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
-import useMetaTags from '@/hooks/useMetaTags';
+import { useEffect }   from 'react';
+import toast           from 'react-hot-toast';
+import { AxiosError }  from 'axios';
+import useMetaTags     from '@/hooks/useMetaTags';
 import { useAppContext } from '@/context/AppContext';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 export type LoginFormProps = z.infer<typeof loginSchema>
 
@@ -22,6 +22,8 @@ function isAxiosError(error: any): error is AxiosError {
   return (error as AxiosError)?.isAxiosError === true;
 }
 const Login = () => {
+
+  const location = useLocation()
   useMetaTags('Login-RentRoom', 'Sign in  to RentRoom and find a place for your stay castion')
   const {setIsLoggin} = useAppContext()
   const queryClient = useQueryClient()
@@ -33,7 +35,7 @@ const Login = () => {
             setIsLoggin(true)
             queryClient.invalidateQueries({queryKey:['verifyToken']})
             
-            navigate('/')
+            navigate(location.state?.from?.pathname || '/')
         }
   })
 

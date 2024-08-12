@@ -11,6 +11,7 @@ import AddHotel from './Page/authenticated/AddHotel';
 import MyRooms from './Page/authenticated/MyRooms';
 import EditRoom from './Page/authenticated/EditRoom';
 import Search from './Page/publicPage/Search';
+import Details from './Page/publicPage/Details';
 
 function App() {
   const {isLoggin} = useAppContext()
@@ -23,6 +24,9 @@ function App() {
         </Layout>}/>
         <Route path='/search' element={<Layout>
           <Search/>
+        </Layout>}/>
+        <Route path='/detail/:id' element={<Layout>
+          <Details/>
         </Layout>}/>
         <Route path="/sign-up" element={<Register/>}/>
         <Route path='/sign-in' element={<Login/>}/>

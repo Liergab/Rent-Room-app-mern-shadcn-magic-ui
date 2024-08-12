@@ -39,7 +39,7 @@ const SearchResultCard = ({room}:{ room:HotelType}) => {
                 </div>
                 <div className='flex flex-col items-end gap-1'>
                     <span className='font-bold'>${room.pricePerNight} per night</span>
-                    <Link to={`detail/${room._id}`}>
+                    <Link to={`/detail/${room._id}`}>
                         <Button className='max-w-fit text-xl'>View More</Button>
                     </Link>
                 </div>

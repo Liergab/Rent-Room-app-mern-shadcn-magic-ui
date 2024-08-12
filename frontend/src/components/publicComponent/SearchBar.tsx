@@ -44,7 +44,7 @@ const SearchBar= () => {
             type="number" 
             className='w-full p-1 focus:outline-none font-bold' 
             min={1} max={20} 
-            value={adultCount}
+            value={adultCount === 0 ? 1 : adultCount}
             onChange={(event) => setAdultCount(parseInt(event.target.value))}
           />
         </label>
