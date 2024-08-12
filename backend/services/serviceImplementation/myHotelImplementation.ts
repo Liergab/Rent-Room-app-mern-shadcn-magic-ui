@@ -23,7 +23,7 @@ class MyHotelImplementation implements MyHotelServices{
         return  MyHotelRepository.updateRoom(id, update)
     }
 
-    async searchHotels(queryParams: any) {
+    async searchHotels(queryParams: any, pageSize:number, pageNumber:number) {
         const query = constructSearchQuery(queryParams);
 
         let sortOption = {};
@@ -39,8 +39,8 @@ class MyHotelImplementation implements MyHotelServices{
                 break;
         }
 
-        const pageSize = 5;
-        const pageNumber = parseInt(queryParams.page ? queryParams.page.toString() : "1");
+        // const pageSize = 5;
+        // const pageNumber = parseInt(queryParams.page ? queryParams.page.toString() : "1");
 
         return await MyHotelRepository.searchHotel(query, sortOption, pageSize, pageNumber);
     }

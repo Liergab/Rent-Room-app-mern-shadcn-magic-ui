@@ -9,7 +9,7 @@ export const search = async(req:Request,res:Response,next:NextFunction) => {
         const pageNumber = parseInt(
           req.query.page ? req.query.page.toString() : "1"
         );
-        const { data: hotels, total } = await myHotelImplementation.searchHotels(req.query)
+        const { data: hotels, total } = await myHotelImplementation.searchHotels(req.query, pageSize, pageNumber)
     
         const response: HotelSearchResponse = {
           data: hotels,
