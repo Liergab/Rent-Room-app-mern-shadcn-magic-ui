@@ -12,7 +12,7 @@ const MyRooms = () => {
     const {data:hotelData,isLoading} = useGetAllRoomByOwner()
    
     if(isLoading){
-        return "loading.."
+        return 
     }
   return (
     <div className='space-y-5 container'>

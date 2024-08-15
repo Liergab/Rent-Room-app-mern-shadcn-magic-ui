@@ -1,5 +1,6 @@
 
-import { HotelSearchResponse, RoomType } from '@/types';
+import { BookingFormData } from '@/components/forms/BookingForm';
+import { HotelSearchResponse, paymentIntentResponse, RoomType } from '@/types';
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import axios from 'axios'
 
@@ -116,3 +117,32 @@ export const UseGetHotelDetailsById = (id:string):UseQueryResult<RoomType> => {
         }
     })
 }
+
+export const useCreatePaymentIntent = (hotelId:string, numberOfNights:string):UseQueryResult<paymentIntentResponse> => {
+    return useQuery({
+        queryKey:['createPayment'],
+        enabled: !!hotelId && parseInt(numberOfNights, 10) > 0, 
+        queryFn:async():Promise<paymentIntentResponse> => {
+            const response = await axios.post(`${BASE_URL}api/v1/${hotelId}/bookings/payment-intent`,{numberOfNights},{
+                headers:{
+                    'content-type':'application/json'
+                },
+                withCredentials:true
+            })
+            return response.data
+        }
+    })
+   
+}
+
+export const useCreateRoomBooking = async(formData:BookingFormData) => {
+    
+    const response = await axios.post(`${BASE_URL}api/v1/${formData.hotelId}/bookings`,{formData},{
+        headers:{
+                'content-type':'application/json'
+        },
+                withCredentials:true
+     })
+    return response.data
+}
+   

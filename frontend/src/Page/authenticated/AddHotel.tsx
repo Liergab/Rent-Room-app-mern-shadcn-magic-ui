@@ -13,7 +13,11 @@ const AddHotel = () => {
     onSuccess:()=> {
       queryClient.invalidateQueries({queryKey:['getAllRoomByOwner']})
       toast.success('Room Added!')
-      navigate('/my-hotel')
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ['getAllRoomByOwner'] });
+        navigate('/my-hotel');
+      }, 5000);
+
     },
     onError:(error)=>{
       console.log(error)

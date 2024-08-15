@@ -95,7 +95,7 @@ const ManageHotelForms:React.FC<props> = ({onSave,isLoading, hotel}) => {
       <FacilitiesFormSection/>
       <GuestsSection/>
       <ImageFormSection/>
-      <Button disabled={isLoading} type="submit" >{isLoading ? 'Submmiting' :' submit'}</Button>
+      <Button disabled={isLoading} type="submit" >{isLoading ? 'Submitting' :' submit'}</Button>
     </form>
    </FormProvider>
   )

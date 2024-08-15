@@ -1,12 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ValidateToken } from '@/services/api/Auth';
+import {loadStripe, Stripe} from '@stripe/stripe-js'
 
+const STRIPE_PUB_KEY = import.meta.env.VITE_STRIPE_PUB_KEY || ""
 type AppContextType = {
   isLoggin: boolean;
   setIsLoggin: React.Dispatch<React.SetStateAction<boolean>>;
+  stripePromise:Promise<Stripe | null>
 };
 
 const AppContext = React.createContext<AppContextType | undefined>(undefined);
+
+const stripePromise = loadStripe(STRIPE_PUB_KEY);
 
 export const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoggin, setIsLoggin] = useState<boolean>(() => {
@@ -24,7 +29,7 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
   }, [isLoading, isError, data]);
 
   return (
-    <AppContext.Provider value={{ isLoggin, setIsLoggin }}>
+    <AppContext.Provider value={{ isLoggin, setIsLoggin, stripePromise }}>
       {children}
     </AppContext.Provider>
   );

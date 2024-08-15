@@ -12,6 +12,7 @@ import MyRooms from './Page/authenticated/MyRooms';
 import EditRoom from './Page/authenticated/EditRoom';
 import Search from './Page/publicPage/Search';
 import Details from './Page/publicPage/Details';
+import Booking from './Page/authenticated/Booking';
 
 function App() {
   const {isLoggin} = useAppContext()
@@ -31,6 +32,7 @@ function App() {
         <Route path="/sign-up" element={<Register/>}/>
         <Route path='/sign-in' element={<Login/>}/>
         {isLoggin && <Route path='/my-hotel' element={<Layout><MyRooms/></Layout>}/>}
+        {isLoggin && <Route path='/hotel/:hotelId/booking' element={<Layout><Booking/></Layout>}/>}
         {isLoggin && <Route path='/edit-hotel/:id' element={<Layout><EditRoom/></Layout>}/>}
         {isLoggin == true && <Route path='/add-hotel' element={<Layout><AddHotel/></Layout>}/>}
         <Route path='*' element={<Navigate to='/'/>}/>

@@ -34,6 +34,7 @@ const Login = () => {
             toast.success('successfully register')
             setIsLoggin(true)
             queryClient.invalidateQueries({queryKey:['verifyToken']})
+            queryClient.invalidateQueries({queryKey:['currentUser']})
             
             navigate(location.state?.from?.pathname || '/')
         }

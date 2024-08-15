@@ -27,9 +27,10 @@ const Header = () => {
     const LogoutUser = useMutation({
         mutationFn:useLogout,
         onSuccess: () => {
-            toast.success('Logout successfull')
+          toast.success('Logout successfull')
           queryClient.invalidateQueries({queryKey:['verifyToken']})
           queryClient.resetQueries({queryKey:['getAllRoomByOwner']})
+          queryClient.resetQueries({queryKey:['currentUser']})
             navigate('/');
           },
           onError: (error) => {
