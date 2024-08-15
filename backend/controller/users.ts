@@ -32,3 +32,11 @@ export const register = async(req:Request, res:Response, next:NextFunction) => {
         next(error)
     }
 }
+
+export const userAuthenticated = async(req:Request,res:Response,next:NextFunction) => {
+    try {
+        res.status(200).json(req.user)
+    } catch (error) {
+        next(error)
+    }
+}

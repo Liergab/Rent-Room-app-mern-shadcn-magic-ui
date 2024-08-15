@@ -23,3 +23,22 @@ export type HotelSearchResponse = {
         pages:number;
     }
 }
+
+export type paymentIntentResponse = {
+    paymentIntentId:string,
+    clientSecret:string,
+    totalCost : number,
+}
+
+export type BookingType = {
+    _id       : string,
+    userId    : string,
+    email     : string,
+    firstName : string,
+    lastName  : string,
+    adultCount: number;
+    childCount: number;
+    checkIn   : Date;
+    checkOut  : Date;
+    totalCost : number
+}

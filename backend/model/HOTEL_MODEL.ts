@@ -1,4 +1,5 @@
 import mongoose,{ Document, model, Schema} from "mongoose";
+import { BookingType } from "../types";
 
 export interface HotelType extends Document{
 
@@ -17,8 +18,50 @@ export interface HotelType extends Document{
     imageUrls     : string[];
     createdAt     : Date;
     updatedAt     : Date;
+    bookings      : BookingType[]
 
 }
+
+const bookingSchema = new Schema<BookingType>({
+    firstName:{
+        type:String,
+        required:true
+    },
+    lastName:{
+        type:String,
+        required:true
+    },
+    email:{
+        type:String,
+        required:true
+    },
+    adultCount:{
+        type:Number,
+        required:true
+    },
+    childCount:{
+        type:Number,
+        required:true
+    },
+    checkIn:{
+        type:Date,
+        required:true
+    },
+    checkOut:{
+        type:Date,
+        required:true
+    },
+    userId:{
+        type:String,
+        required:true
+    },
+    totalCost:{
+        type:Number,
+        required:true
+    },
+
+    
+})
 
 const hotelSchema = new Schema<HotelType>({
     userId:{
@@ -88,7 +131,8 @@ const hotelSchema = new Schema<HotelType>({
 
         type      : [{type:String,  required:true }],
 
-    }
+    },
+    bookings:[bookingSchema]
 },{timestamps:true})
 
 const Hotel = model<HotelType>("Hotel", hotelSchema)
