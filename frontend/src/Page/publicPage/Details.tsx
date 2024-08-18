@@ -2,8 +2,10 @@ import { UseGetHotelDetailsById } from '@/services/api/Room'
 import { useParams } from 'react-router-dom'
 import {AiFillStar} from 'react-icons/ai'
 import GuestInfoForm from '@/components/forms/GuestInfoForm'
+import useMetaTags from '@/hooks/useMetaTags'
 
 const Details = () => {
+    useMetaTags('Hotel Details', 'Hotel Details')
     const {id} = useParams()
     const {data:RoomData} = UseGetHotelDetailsById(id as string)
 

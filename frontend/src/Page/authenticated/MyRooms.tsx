@@ -6,9 +6,11 @@ import { IoPricetagsOutline }   from "react-icons/io5";
 import { BsBuilding }           from "react-icons/bs";
 import { LuUsers }              from "react-icons/lu";
 import { FaRegStar }            from "react-icons/fa6";
+import useMetaTags from '@/hooks/useMetaTags';
 
 
 const MyRooms = () => {
+    useMetaTags('Hotel List', 'Hotel List')
     const {data:hotelData,isLoading} = useGetAllRoomByOwner()
    
     if(isLoading){

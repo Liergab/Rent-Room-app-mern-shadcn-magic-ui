@@ -2,6 +2,7 @@ import BookingDetailSummary from '@/components/Authenticated/BookingDetailSummar
 import BookingForm from '@/components/forms/BookingForm'
 import { useAppContext } from '@/context/AppContext'
 import { useSearchContext } from '@/context/SearchContext'
+import useMetaTags from '@/hooks/useMetaTags'
 import { useFetchCurrentUser } from '@/services/api/Auth'
 import { useCreatePaymentIntent, UseGetHotelDetailsById } from '@/services/api/Room'
 import {Elements} from '@stripe/react-stripe-js'
@@ -9,6 +10,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 const Booking = () => {
+  useMetaTags('Book Hotel', 'Add Hotel')
   const {stripePromise} = useAppContext()
   const search = useSearchContext()
   const{hotelId} = useParams()
@@ -23,7 +25,7 @@ const Booking = () => {
   }, [search.checkIn, search.checkOut,numberOfNights]);
  
   const {data:currentUser, isLoading} = useFetchCurrentUser()
-  console.log('Book',currentUser)
+
   const {data:paymentIntentData, isLoading: paymentLoading, } = useCreatePaymentIntent(
     hotelId as string,
     numberOfNights.toString()

@@ -1,4 +1,5 @@
 import ManageHotelForms from '@/components/forms/ManageHotelForms'
+import useMetaTags from '@/hooks/useMetaTags'
 import { useGetRoomById, useUpdateRoom } from '@/services/api/Room'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
@@ -6,6 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 
 const EditRoom = () => {
+  useMetaTags('Edit Hotel', 'Edit Hotel')
   const { id } = useParams() 
   const { data: hotel, isLoading } = useGetRoomById(id!)
 

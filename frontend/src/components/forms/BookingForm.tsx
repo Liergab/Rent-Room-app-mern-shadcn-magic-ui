@@ -3,10 +3,10 @@ import { useCreateRoomBooking } from '@/services/api/Room';
 import { paymentIntentResponse, UserType } from '@/types'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { StripeCardElement } from '@stripe/stripe-js';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 type Props ={
     currentUser:UserType;
@@ -28,11 +28,12 @@ export type BookingFormData = {
 
 
 const BookingForm = ({currentUser,paymentIntent}:Props) => {
-    console.log('BookForm',currentUser)
+    const navigate = useNavigate()
     const stripe = useStripe()
     const elements = useElements()
     const {hotelId} = useParams()
     const search = useSearchContext()
+    const queryClient = useQueryClient()
 
     const {handleSubmit, register} = useForm<BookingFormData>({
         defaultValues:{
@@ -53,8 +54,17 @@ const BookingForm = ({currentUser,paymentIntent}:Props) => {
         mutationFn:useCreateRoomBooking,
         onSuccess:() => {
             toast.success('Booking Save')
-        },onError:() => {
-            toast.error("Error saving Booking")
+            queryClient.invalidateQueries({queryKey:['getMyBookings']})
+            setTimeout(() => {
+                navigate('/bookings')
+            }, 4000)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        },onError:(error:any) => {
+            if (error.response && error.response.data && error.response.data.message) {
+                toast.error(`Error: ${error.response.data.message}`);
+              } else {
+                toast.error('Error saving Booking');
+              }
         }
     })
     const onSubmit = async(formData:BookingFormData) => {
@@ -69,6 +79,7 @@ const BookingForm = ({currentUser,paymentIntent}:Props) => {
 
         if(result.paymentIntent?.status === "succeeded"){
            await createRoomBooking.mutateAsync({...formData, paymentIntentId:result.paymentIntent.id})
+
         }
     }
 

@@ -13,6 +13,8 @@ import EditRoom from './Page/authenticated/EditRoom';
 import Search from './Page/publicPage/Search';
 import Details from './Page/publicPage/Details';
 import Booking from './Page/authenticated/Booking';
+import MyBookings from './Page/authenticated/MyBookings';
+import HomePage from './Page/publicPage/HomePage';
 
 function App() {
   const {isLoggin} = useAppContext()
@@ -21,13 +23,16 @@ function App() {
       <Toaster position='top-right'  toastOptions={{duration:5000}} />
       <Routes>
         <Route path='/' element={<Layout>
-          <p>HomrPage</p>
+          <HomePage/>
         </Layout>}/>
         <Route path='/search' element={<Layout>
           <Search/>
         </Layout>}/>
         <Route path='/detail/:id' element={<Layout>
           <Details/>
+        </Layout>}/>
+        <Route path='/bookings' element={<Layout>
+          <MyBookings/>
         </Layout>}/>
         <Route path="/sign-up" element={<Register/>}/>
         <Route path='/sign-in' element={<Login/>}/>

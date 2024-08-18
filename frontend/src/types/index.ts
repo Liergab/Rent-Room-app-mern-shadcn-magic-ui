@@ -15,6 +15,7 @@ export interface RoomType  {
     imageUrls     : string[];
     createdAt     : Date;
     updatedAt     : Date;
+    bookings      : BookingType;
 
 }
 
@@ -33,6 +34,7 @@ export interface HotelType {
     pricePerNight : number;
     starRating    : number;
     imageUrls     : string[];
+    bookings      : BookingType;
     createdAt     : Date;
     updatedAt     : Date;
 
@@ -75,3 +77,4 @@ export type BookingType = {
     checkOut  : Date;
     totalCost : number
 }
+

@@ -1,4 +1,5 @@
 import ManageHotelForms  from "@/components/forms/ManageHotelForms"
+import useMetaTags from "@/hooks/useMetaTags"
 import { useCreateRoom } from "@/services/api/Room"
 import { useMutation, useQueryClient }   from "@tanstack/react-query"
 import toast             from "react-hot-toast"
@@ -6,6 +7,7 @@ import { useNavigate } from "react-router-dom"
 
 
 const AddHotel = () => {
+  useMetaTags('Add Hotel', 'Add Hotel')
   const queryClient = useQueryClient()
   const navigate = useNavigate()
   const createRoom = useMutation({

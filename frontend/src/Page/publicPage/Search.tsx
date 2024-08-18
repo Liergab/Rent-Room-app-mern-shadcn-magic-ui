@@ -6,11 +6,13 @@ import SearchResultCard     from '@/components/search/SearchResultCard'
 import StarRatingFilter     from '@/components/search/StarRatingFilter'
 import { Skeleton }         from '@/components/ui/skeleton'
 import { useSearchContext } from '@/context/SearchContext'
+import useMetaTags from '@/hooks/useMetaTags'
 import { useSearchRoom }    from '@/services/api/Room'
 import { HotelType }        from '@/types'
 import { useState }         from 'react'
 
 const Search = () => {
+  useMetaTags('Search Hotel', 'Search Hotel')
   const search = useSearchContext()
   const [page, setPage] = useState<number>(1)
   const [selectedStar, setSelectedStar] = useState<string[]>([])

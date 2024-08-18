@@ -1,6 +1,6 @@
 
 import { BookingFormData } from '@/components/forms/BookingForm';
-import { HotelSearchResponse, paymentIntentResponse, RoomType } from '@/types';
+import { HotelSearchResponse, HotelType, paymentIntentResponse, RoomType } from '@/types';
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import axios from 'axios'
 
@@ -145,4 +145,28 @@ export const useCreateRoomBooking = async(formData:BookingFormData) => {
      })
     return response.data
 }
-   
+
+export const useGetMyBookings = ():UseQueryResult<HotelType[]> => {
+    return useQuery({
+        queryKey:['getMyBookings'],
+        queryFn:async():Promise<HotelType[]> => {
+            const response = await axios.get(`${BASE_URL}api/v1/my-bookings`,{
+                withCredentials:true
+            })
+
+            return response.data
+        }
+    })
+}
+
+export const useGetLatestHotel = ():UseQueryResult<HotelType[]> => {
+    return useQuery({
+        queryKey:['latestHotel'],
+        queryFn:async():Promise<HotelType[]> => {
+            const response = await axios.get(`${BASE_URL}api/v1/hotel`,{
+                withCredentials:true
+            })
+            return response.data
+        }
+    })
+}

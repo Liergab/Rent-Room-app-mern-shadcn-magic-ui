@@ -3,7 +3,7 @@ import DarkModeToggle        from "../DarModeToggle"
 import { Button }            from "../ui/button"
 import { useAppContext }     from "@/context/AppContext"
 import { useMutation, useQueryClient }       from "@tanstack/react-query"
-import { useLogout }         from "@/services/api/Auth"
+import { useFetchCurrentUser, useLogout }         from "@/services/api/Auth"
 import toast                 from "react-hot-toast"
 import logo                  from '../../assets/images/rr-logo.png'
 import { CiMenuFries } from "react-icons/ci";
@@ -38,6 +38,8 @@ const Header = () => {
           }
     })
 
+    const{data:CurrentUser} = useFetchCurrentUser()
+
     const logoutButton = () => {
             LogoutUser.mutateAsync();   
             
@@ -55,7 +57,7 @@ const Header = () => {
                 {
                     isLoggin ? 
                     <React.Fragment>
-                      <Link to='/my-bookings' className="navlinks-hover">
+                      <Link to='/bookings' className="navlinks-hover">
                             <h1 className="navlinks-text">Booking</h1>
                       </Link>
                       <Link to='/my-hotel' className="navlinks-hover">
@@ -74,6 +76,7 @@ const Header = () => {
                 }
 
                 <DarkModeToggle/>
+                {isLoggin && <h1 className="rounded-full p-2 bg-bleached-cedar-400 text-bleached-cedar-900">{CurrentUser?.firstName.slice(0,2).toUpperCase()}</h1>}
             </span>
             <div className=" inline md:hidden">
             <Menubar className="border border-bleached-cedar-800">
