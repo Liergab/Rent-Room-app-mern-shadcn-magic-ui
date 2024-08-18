@@ -9,5 +9,6 @@ searchRouter.post('/:hotelId/bookings/payment-intent', authMiddleware, controlle
 searchRouter.get('/my-bookings/', authMiddleware, controller.getMyBookings)
 searchRouter.get('/search', controller.search)
 searchRouter.get('/find/:id', controller.getHotelById)
+searchRouter.get('/hotel', controller.getAllHotel)
 
 export default searchRouter

@@ -22,6 +22,9 @@ class MyHotelRepository{
     async getAllRoomById(id:string):Promise<HotelType[]>{
         return await Hotel.find({userId:id}).exec()
     }
+    async getAllHotel():Promise<HotelType[]>{
+        return await Hotel.find().sort({createdAt:-1})
+    }
 
     async getRoomById(id:string):Promise<HotelType | null>{
         return await Hotel.findById(id).exec()

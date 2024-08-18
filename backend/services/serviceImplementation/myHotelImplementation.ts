@@ -43,6 +43,9 @@ class MyHotelImplementation implements MyHotelServices{
 
         return await MyHotelRepository.searchHotel(query, sortOption, pageSize, pageNumber);
     }
+    async getAllHotel(): Promise<HotelType[]> {
+        return await MyHotelRepository.getAllHotel()
+    }
 }
 
 export default new MyHotelImplementation()

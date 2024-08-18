@@ -71,68 +71,100 @@ export const payment = async(req:Request,res:Response,next:NextFunction) => {
     next(error)
   }
 }
-
-export const createHotelBookings = async(req:Request,res:Response,next:NextFunction) => {
+export const createHotelBookings = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const paymentIntentId = req.body.formData.paymentIntentId;
+    const userId = req.user?.id;
+    const hotelId = req.params.hotelId;
 
-    const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId)
+    // Retrieve the payment intent from Stripe
+    const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
 
     if (!paymentIntent) {
-      return res.status(400).json({ message: "payment intent not found" });
+      return res.status(400).json({ message: "Payment intent not found" });
     }
 
-    if (
-      paymentIntent.metadata.hotelId !== req.params.hotelId ||
-      paymentIntent.metadata.userId !== req.user?.id
-    ) {
-      return res.status(400).json({ message: "payment intent mismatch" });
+    // Validate the payment intent metadata
+    if (paymentIntent.metadata.hotelId !== hotelId || paymentIntent.metadata.userId !== userId) {
+      return res.status(400).json({ message: "Payment intent mismatch" });
     }
 
+    // Ensure the payment was successful
     if (paymentIntent.status !== "succeeded") {
       return res.status(400).json({
-        message: `payment intent not succeeded. Status: ${paymentIntent.status}`,
+        message: `Payment intent not succeeded. Status: ${paymentIntent.status}`,
       });
     }
-    const newBooking:BookingType = {
-      ...req.body.formData, 
-      userId:req.user?.id
-    }
-    const hotel = await Hotel.findOneAndUpdate({_id:req.params.hotelId},{
-      $push:{bookings:newBooking}
-    })
-    if(!hotel){
-      return res.status(404).json({message:"Hotel not found"})
+
+    // Check if the user has already booked this hotel
+    const existingBooking = await Hotel.findOne({
+      _id: hotelId,
+      'bookings.userId': userId
+    });
+
+    if (existingBooking) {
+      return res.status(400).json({ message: "User has already booked this hotel" });
     }
 
-    await hotel.save()
-    res.status(201).send('ok')
+    // Create the new booking
+    const newBooking: BookingType = {
+      ...req.body.formData,
+      userId: userId
+    };
+
+    // Push the new booking to the hotel's bookings array
+    const hotel = await Hotel.findOneAndUpdate(
+      { _id: hotelId },
+      { $push: { bookings: newBooking } },
+      { new: true } // Return the updated document
+    );
+
+    if (!hotel) {
+      return res.status(404).json({ message: "Hotel not found" });
+    }
+
+    res.status(201).json({ message: 'Booking created successfully' });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+export const getAllHotel = async(req:Request, res:Response, next:NextFunction) => {
+  try {
+    const hotel = await myHotelImplementation.getAllHotel()
+    res.status(200).json(hotel)
   } catch (error) {
     next(error)
   }
 }
 
+
 export const getMyBookings = async (req:Request,res:Response,next:NextFunction) => {
   try {const userId = req.user?.id
-    const bookings = await Hotel.find({'bookings.userId': userId},
+    const bookings = await Hotel.aggregate([
+      { $match: { 'bookings.userId': userId } }, // Match hotels with bookings by the user
+      { $unwind: '$bookings' }, // Unwind the bookings array
+      { $match: { 'bookings.userId': userId } }, // Match only the bookings by the user again after unwind
       {
-        // Only return the matching bookings and the necessary hotel fields
-        bookings: { $elemMatch: { userId} },
-        name: 1,
-        city: 1,
-        country: 1,
-        description: 1,
-        type: 1,
-        adultCount: 1,
-        childCount: 1,
-        facilities: 1,
-        pricePerNight: 1,
-        starRating: 1,
-        imageUrls: 1,
-        createdAt: 1,
-        updatedAt: 1
+        $project: { // Project only the needed fields
+          name: 1,
+          city: 1,
+          country: 1,
+          description: 1,
+          type: 1,
+          adultCount: 1,
+          childCount: 1,
+          facilities: 1,
+          pricePerNight: 1,
+          starRating: 1,
+          imageUrls: 1,
+          createdAt: 1,
+          updatedAt: 1,
+          bookings: 1, // This will now contain only the matching booking
+        }
       }
-    ) 
+    ]);
     res.status(200).json(bookings)
   } catch (error) {
     next(error)
