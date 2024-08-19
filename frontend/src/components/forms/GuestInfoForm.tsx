@@ -50,7 +50,7 @@ const GuestInfoForm = ({hoteId, pricePerNight}:Props) => {
 
   return (
     <div className='flex flex-col p-4 bg-bleached-cedar-200'>
-      <h3 className="text-md font-bold">${pricePerNight}</h3>
+      <h3 className="text-md font-bold  dark:text-black">${pricePerNight}</h3>
       <form  onSubmit={isLoggin ? handleSubmit(onSubmit) : handleSubmit(onSignInClick)}>
         <div className='grid grid-cols-1 gap-4 items-center'>
           <div>
@@ -64,7 +64,7 @@ const GuestInfoForm = ({hoteId, pricePerNight}:Props) => {
               minDate={minDate}
               maxDate={maxDate}
               placeholderText='Check in Date'
-              className='min-w-full bg-white p-2 focus:outline-none'
+              className='min-w-full bg-white p-2 focus:outline-none dark:text-black'
               wrapperClassName='min-w-full'
             />
           </div>
@@ -78,16 +78,16 @@ const GuestInfoForm = ({hoteId, pricePerNight}:Props) => {
               minDate={minDate}
               maxDate={maxDate}
               placeholderText='Check out Date'
-              className='min-w-full bg-white p-2 focus:outline-none'
+              className='min-w-full bg-white p-2 focus:outline-none  dark:text-black'
               wrapperClassName='min-w-full'
             />
             </div>
             <div className='grid grid-cols-2 bg bg-white px-2 py-1'>
-              <label className=' flex items-center '>
+              <label className=' flex items-center  dark:text-black '>
                 Adults:
                 <input 
                   type="number" 
-                  className='w-full p-1 focus:outline-none font-bold' 
+                  className='w-full p-1 focus:outline-none font-bold  dark:text-black' 
                   min={1} max={20} 
                   {...register('adultCount', {
                     required:"This field is required",
@@ -100,11 +100,11 @@ const GuestInfoForm = ({hoteId, pricePerNight}:Props) => {
                 />
                 {errors.adultCount && <span className='text-red-400'>{errors.adultCount.message}</span>}
               </label>
-              <label className='flex items-center '>
+              <label className='flex items-center  dark:text-black '>
                 Child:
                 <input 
                   type="number" 
-                  className='w-full p-1 focus:outline-none font-bold' 
+                  className='w-full p-1 focus:outline-none font-bold  dark:text-black' 
                   min={0} max={20} 
                   {...register('childCount', {
                     valueAsNumber:true

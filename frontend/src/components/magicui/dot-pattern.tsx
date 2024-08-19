@@ -20,7 +20,7 @@ export function DotPattern({
   x = 0,
   y = 0,
   cx = 1,
-  cy = 0.5,
+  cy = 1,
   cr = 0.5,
   className,
   ...props

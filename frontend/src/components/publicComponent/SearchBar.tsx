@@ -28,31 +28,31 @@ const SearchBar= () => {
   return (
     <form onSubmit={handleSubmit} className=' -mt-8  p-3 bg-bleached-cedar-400 rounded shadow-md w-full grid grid-cols  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 items-center gap-2 '>
       <div className='flex flex-row items-center flex-1 bg-white p-2'>
-        <MdTravelExplore size={25} className='mr-2'/>
+        <MdTravelExplore size={25} className='mr-2 dark:text-black'/>
         <input 
           type="text" 
           placeholder='Where are you going' 
-          className='text-sm w-full focus:outline-none'
+          className='text-sm w-full focus:outline-none text-gray-300 dark:text-black'
           value={destination}
           onChange={(event) => setDestination(event.target.value)}
         />
       </div>
       <div className='flex bg-white px-2 py-1 gap-1'>
-        <label className='flex items-center '>
+        <label className='flex items-center text-gray-500 dark:text-black'>
           Adults:
           <input 
             type="number" 
-            className='w-full p-1 focus:outline-none font-bold' 
+            className='w-full p-1 focus:outline-none font-bold text-gray-500 dark:text-black' 
             min={1} max={20} 
             value={adultCount === 0 ? 1 : adultCount}
             onChange={(event) => setAdultCount(parseInt(event.target.value))}
           />
         </label>
-        <label className='flex items-center '>
+        <label className='flex items-center text-gray-500 dark:text-black'>
           Child:
           <input 
             type="number" 
-            className='w-full p-1 focus:outline-none font-bold' 
+            className='w-full p-1 focus:outline-none font-bold text-gray-500 dark:text-black' 
             min={0} max={20} 
             value={childCount}
             onChange={(event) => setChildCount(parseInt(event.target.value))}
@@ -69,7 +69,7 @@ const SearchBar= () => {
           minDate={minDate}
           maxDate={maxDate}
           placeholderText='Check in Date'
-          className='min-w-full bg-white p-2 focus:outline-none'
+          className='min-w-full bg-white p-2 focus:outline-none text-gray-500 dark:text-black'
           wrapperClassName='min-w-full'
         />
       </div>
@@ -83,7 +83,7 @@ const SearchBar= () => {
           minDate={minDate}
           maxDate={maxDate}
           placeholderText='Check in Date'
-          className='min-w-full bg-white p-2 focus:outline-none'
+          className='min-w-full bg-white p-2 focus:outline-none text-gray-500 dark:text-black'
           wrapperClassName='min-w-full'
         />
       </div>

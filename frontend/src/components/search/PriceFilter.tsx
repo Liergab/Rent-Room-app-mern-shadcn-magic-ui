@@ -10,6 +10,7 @@ const PriceFilter = ({selectedPrice, onChange}:Props) => {
         <select 
           value={selectedPrice} 
           onChange={(event) => onChange(event.target.value ? parseInt(event.target.value) : undefined)}
+          className="dark:text-black"
         >
             <option value="">Select Max Price</option>
             {[200, 500, 1000, 3000, 5000, 10000, 20000].map((price) => (

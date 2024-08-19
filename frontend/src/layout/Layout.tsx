@@ -22,7 +22,7 @@ const Layout = ({children}:props) => {
             <Header/>
              <Hero/>
              {showSearchBar && (
-                <div className="container mx-auto">
+                <div className="container px-4 md:px-40">
                 <SearchBar />
                 </div>
             )}

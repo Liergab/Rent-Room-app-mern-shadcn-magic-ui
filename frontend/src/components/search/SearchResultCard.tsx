@@ -29,18 +29,18 @@ const SearchResultCard = ({room}:{ room:HotelType}) => {
                 </div>
             </div>
             <div className='grid grid-cols-2 items-end whitespace-nowrap'>
-                <div className='flex gap-1 items-center'>
+                <div className='flex gap-1 items-center flex-wrap'>
                     {room.facilities.slice(0, 3).map((facilities, index) => (
-                        <span className='bg-slate-300 p-2 rounded-lg text-xs whitespace-nowrap' key={index}>
+                        <span className='bg-bleached-cedar-50 dark:bg-bleached-cedar-950 dark:text-bleached-cedar-50  border border-bleached-cedar-400 p-2 rounded-lg text-xs whitespace-nowrap ' key={index}>
                             {facilities}
                         </span>
                     ))}
                     <span className='text-sm'>{room.facilities.length > 3 && `+${room.facilities.length - 3} more`}</span>
                 </div>
                 <div className='flex flex-col items-end gap-1'>
-                    <span className='font-bold'>${room.pricePerNight} per night</span>
+                    <span className='font-bold text-sm md:text-base'>${room.pricePerNight} per night</span>
                     <Link to={`/detail/${room._id}`}>
-                        <Button className='max-w-fit text-xl'>View More</Button>
+                        <Button className='max-w-fit text-sm md:text-xl dark:bg-bleached-cedar-800 dark:text-bleached-cedar-50'>View More</Button>
                     </Link>
                 </div>
             </div>

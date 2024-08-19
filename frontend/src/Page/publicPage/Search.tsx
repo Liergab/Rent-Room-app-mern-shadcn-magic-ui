@@ -4,6 +4,8 @@ import Pagination           from '@/components/search/Pagination'
 import PriceFilter          from '@/components/search/PriceFilter'
 import SearchResultCard     from '@/components/search/SearchResultCard'
 import StarRatingFilter     from '@/components/search/StarRatingFilter'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import { Button } from '@/components/ui/button'
 import { Skeleton }         from '@/components/ui/skeleton'
 import { useSearchContext } from '@/context/SearchContext'
 import useMetaTags from '@/hooks/useMetaTags'
@@ -20,7 +22,7 @@ const Search = () => {
   const [sortOption, setSortOption] = useState<string>("")
   const [selectedHotelTypes,setSelectedHotelTypes] = useState<string[]>([])
   const [selectedHotelFacilities,setSelectedHotelFacilities] = useState<string[]>([])
-
+  const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const searchParams = {
     destination : search.destination,
@@ -91,23 +93,60 @@ const Search = () => {
 
   return (
     
-    <div className='container grid grid-cols-1 md:grid-cols-[250px_1fr] gap-5'>
-      <div className='rounded-lg border p-5 border-slate-300 h-fit sticky top-10'>
-        <div className='space-y-5'>
-          <h3 className='text-lg font-semibold border-b border-slate-300 pb-5'>Filter by:</h3>
-
+    <div className='container grid grid-cols-1 md:grid-cols-[250px_1fr] gap-5 '>
+      <div className='rounded-lg border p-5 border-bleached-cedar-400 h-fit sticky top-0 md:top-10  bg-white dark:bg-black dark:bg-opacity-80 md:bg-transparent'>
+        <Button 
+          className='inline md:hidden mb-2 dark:bg-bleached-cedar-800 bg-opacity-50 dark:text-bleached-cedar-50'
+          onClick={() => setIsOpen((prev) => !prev)}
+        >
+            Filter By:
+        </Button>
+        <div className={`${isOpen ? 'space-y-5 hidden' : 'inline'}`}>
+          <h3 className='text-lg font-semibold border-b border-slate-300 pb-5 hidden md:inline '>Filter by:</h3>
+          <Accordion type="single" collapsible className="w-full inline md:hidden">
+              <AccordionItem value="item-1">
+                <AccordionTrigger>Star Rating?</AccordionTrigger>
+                <AccordionContent>
+                  <StarRatingFilter 
+                    selectedStars={selectedStar} 
+                    onChange={handleStarChange}
+                  />
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-2">
+                <AccordionTrigger>Hotel Type?</AccordionTrigger>
+                <AccordionContent>
+                  <HotelTypesFilter 
+                    selectedHotelTypes={selectedHotelTypes} 
+                    onChange={handleHotelTypeChange}
+                  />
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-3">
+                <AccordionTrigger>Facilities?</AccordionTrigger>
+                <AccordionContent>
+                  <HotelFaclitiesFilter 
+                      selectedHotelFacilities={selectedHotelFacilities} 
+                      onChange={handleHotelFacilitiesChange}
+                  />
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+            <div className='space-y-5 hidden md:inline'>
             <StarRatingFilter 
-              selectedStars={selectedStar} 
-              onChange={handleStarChange}
-            />
-            <HotelTypesFilter 
-              selectedHotelTypes={selectedHotelTypes} 
-              onChange={handleHotelTypeChange}
-            />
-            <HotelFaclitiesFilter 
-                selectedHotelFacilities={selectedHotelFacilities} 
-                onChange={handleHotelFacilitiesChange}
-            />
+                    selectedStars={selectedStar} 
+                    onChange={handleStarChange}
+                  />
+                  <HotelTypesFilter 
+                    selectedHotelTypes={selectedHotelTypes} 
+                    onChange={handleHotelTypeChange}
+                  />
+                  <HotelFaclitiesFilter 
+                      selectedHotelFacilities={selectedHotelFacilities} 
+                      onChange={handleHotelFacilitiesChange}
+                  />
+
+            </div>
             <PriceFilter selectedPrice={selectedPrice} onChange={(value?:number) => setSelectedPrice(value)}/>
 
         </div>
@@ -118,7 +157,7 @@ const Search = () => {
               {RoomData?.pagination.total} hotels found {" "}
               {search.destination ? `in ${search.destination}` : ''}
             </span>
-            <select value={sortOption} onChange={(event) => setSortOption(event.target.value)} className='p-2 border rounded-md'>
+            <select value={sortOption} onChange={(event) => setSortOption(event.target.value)} className='p-2 border rounded-md text-gray-500 dark:text-black'>
             <option value=""> Sort By</option>
             <option value="starRating">StarRating</option>
             <option value="pricePerNightAsc">Price Per Night (low to high)</option>
